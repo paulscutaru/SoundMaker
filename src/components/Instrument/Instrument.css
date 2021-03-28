@@ -1,0 +1,39 @@
+.piano-container {
+  width: 50%;
+}
+
+.tiles-wrapper {
+  height: 170px;
+  border-radius: 0 0 3px 3px;
+  display: flex;
+}
+
+.tile {
+  font-size: 70%;
+  width: 50%;
+}
+
+.tile_sharp {
+  margin-right: -4%;
+  background: #444;
+  width: 30%;
+  height: 120px;
+  transform: translateX(-50%);
+  box-shadow:-1px -1px 2px rgba(255,255,255,0.2) inset,0 -5px 2px 3px rgba(0,0,0,0.6) inset,0 2px 4px rgba(0,0,0,0.5);
+}
+
+.tile:active,
+.tile_sharp:active{
+  background-color: grey;
+}
+
+.play-button{
+  width: 150px;
+}
+
+.Instrument h2{
+  padding: 5px;
+  background-color: var(--tertiary-color);
+  border: 2px solid black;
+  border-radius: 50px;
+}

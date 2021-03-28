@@ -1,0 +1,13 @@
+:root {
+  --primary-color: lightgrey;
+  --secondary-color: grey;
+  --tertiary-color:#ff8800;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family:'Lucida Console';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

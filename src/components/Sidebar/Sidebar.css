@@ -1,0 +1,33 @@
+.Sidebar {
+  height: 100%;
+  width: 250px;
+  background-color: var(--primary-color);
+  text-align: center;
+  border-radius: 50px;
+}
+
+.SidebarItemTitle{
+  background-color: var(--tertiary-color);
+  border: 2px solid black;
+  border-radius: 50px;
+}
+
+.SidebarList {
+  height: auto;
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+}
+
+.SidebarDropdown {
+  display: flex;
+  height: 45px;
+  justify-content: center;
+  align-items: center;
+}
+
+.SidebarDropdown:hover{
+  background-color: var(--tertiary-color);
+  cursor:pointer;
+}
+
