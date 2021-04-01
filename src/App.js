@@ -15,16 +15,13 @@ export default function App(props) {
 
   return (
     <div className='App'>
-
       <Sidebar name={instrument} onClick={handleInstrumentChange}/>
       <div className='Content'>
         <Header />
         <div className='Instrument'>
           <Instrument name={instrument} />
         </div>
-
       </div>
-
     </div>
   );
 

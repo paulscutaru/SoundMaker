@@ -7,13 +7,8 @@ export const SidebarData = [
             },
             {
                 name: 'Noise'
-            },
-            {
-                name: 'Player'
-            },
-            {
-                name: 'Microphone'
-            }]
+            }
+        ]
     },
     {
         title: 'Synths',
@@ -32,5 +27,15 @@ export const SidebarData = [
             }
         ]
     },
+    {
+        title: 'Misc',
+        content: [
+            {
+                name: 'Player'
+            },
+            {
+                name: 'Microphone'
+            }]
+    }
 ]
 

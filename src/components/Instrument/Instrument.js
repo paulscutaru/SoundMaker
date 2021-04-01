@@ -1,5 +1,5 @@
 import './Instrument.css'
-import { Oscillator, Noise, Player, Microphone, Synth } from "./InstrumentsData"
+import { Oscillator, Noise, Player, Microphone, Synth} from "./InstrumentsData"
 
 export default function Instrument(props) {
 

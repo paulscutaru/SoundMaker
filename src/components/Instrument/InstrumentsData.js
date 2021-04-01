@@ -1,9 +1,22 @@
 import * as Tone from "tone";
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import getNotesBetween from "../utils/getNotesBetween";
 
 function Oscillator(props) {
-    const oscillator = new Tone.Oscillator().toDestination();
+    const [frequency, setFrequency] = useState('440');
+    const [oscType, setOscType] = useState('sine');
+
+    const oscillator = new Tone.Oscillator(frequency, oscType).toDestination();
+
+    const updateFrequency = (event) => {
+        if (event.target.value > 0)
+            setFrequency(Math.min(event.target.value, 4000));
+    };
+
+    const updateOscType = (event) => {
+        setOscType(event.target.value);
+    };
+
     function trigger() {
         oscillator.start();
     }
@@ -14,15 +27,36 @@ function Oscillator(props) {
 
     let name = props.name;
     return (
-        <div>
+        <div className='Oscillator'>
             <h2>{name}</h2>
-            <button className="play-button" onMouseDown={trigger} onMouseUp={stop}>⚫</button>
+            <button className="play-button" onMouseDown={trigger} onMouseUp={stop} onMouseLeave={stop}>⚫</button>
+            <div className='Options'>
+                <div className='margin-top'>
+                    <label>Frequency:</label>
+                    <input name='frequency' value={frequency} onChange={updateFrequency} />
+                </div>
+                <div className='margin-top'>
+                    <label>Type:</label>
+                    <select name="oscType" value={oscType} onChange={updateOscType}>
+                        <option value="sine">Sine</option>
+                        <option value="square">Square</option>
+                        <option value="triangle">Triangle</option>
+                    </select>
+                </div>
+            </div>
         </div>
     );
 }
 
 function Noise(props) {
-    const noise = new Tone.Noise().toDestination();
+    const [noiseType, setNoiseType] = useState('white');
+
+    const noise = new Tone.Noise(noiseType).toDestination();
+    noise.volume.value = -6;
+
+    const updateNoiseType = (event) => {
+        setNoiseType(event.target.value);
+    };
 
     function trigger() {
         noise.start();
@@ -36,7 +70,17 @@ function Noise(props) {
     return (
         <div>
             <h2>{name}</h2>
-            <button className="play-button" onMouseDown={trigger} onMouseUp={stop}>⚫</button>
+            <button className="play-button" onMouseDown={trigger} onMouseUp={stop} onMouseLeave={stop}>⚫</button>
+            <div className='Options'>
+                <div className='margin-top'>
+                    <label>Type:</label>
+                    <select name="noiseType" value={noiseType} onChange={updateNoiseType}>
+                        <option value="white">White</option>
+                        <option value="brown">Brown</option>
+                        <option value="pink">Pink</option>
+                    </select>
+                </div>
+            </div>
         </div>
     );
 
@@ -49,15 +93,17 @@ function Player(props) {
     const [isSelected, setIsSelected] = useState(false);
 
     function trigger() {
-        if (isSelected)
-            player = new Tone.Player(selectedFile.name).toDestination()
-        player.autostart = true;
-        console.log('Selected file in player: ', selectedFile.name)
+        if (isSelected) {
+            player = new Tone.Player(URL.createObjectURL(selectedFile.name)).toDestination()
+            player.start()
+            
+        }
     }
 
     const changeHandler = (event) => {
         setSelectedFile(event.target.files[0]);
         setIsSelected(true);
+        console.log('Selected file in player: ', event.target.files[0].name)
     };
 
     let name = props.name;
@@ -145,7 +191,7 @@ function Synth(props) {
 
 
     const getTilesButtons = () => {
-        const notes = getNotesBetween('C3', 'B5')
+        const notes = getNotesBetween('C2', 'B5')
         var tile_class = 'tile'
 
         return notes.map((note) => {
