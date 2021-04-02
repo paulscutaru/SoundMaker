@@ -6,7 +6,14 @@ import Sidebar from './components/Sidebar/Sidebar'
 import Header from './components/Header/Header'
 
 export default function App(props) {
+  const [data, setData] = React.useState(null);
   const [instrument,setInstrument] = React.useState('Synth');
+
+  React.useEffect(() => {
+    fetch("/api")
+      .then((res) => res.json())
+      .then((data) => setData(data.message));
+  }, []);
 
   function handleInstrumentChange(newInstrument) {
     setInstrument(newInstrument);
@@ -21,6 +28,7 @@ export default function App(props) {
         <div className='Instrument'>
           <Instrument name={instrument} />
         </div>
+        <h1>{!data ? "Loading..." : data}</h1>
       </div>
     </div>
   );

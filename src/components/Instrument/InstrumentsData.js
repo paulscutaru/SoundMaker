@@ -96,7 +96,7 @@ function Player(props) {
         if (isSelected) {
             player = new Tone.Player(URL.createObjectURL(selectedFile.name)).toDestination()
             player.start()
-            
+
         }
     }
 
@@ -110,7 +110,7 @@ function Player(props) {
     return (
         <div>
             <h2>{name}</h2>
-            <input type="file" name="file" onChange={changeHandler} />
+            <input type="file" name="file" accept='.mp3' onChange={changeHandler} />
             {isSelected ? (
                 <div>
                     <p>Filename: {selectedFile.name}</p>
@@ -171,6 +171,8 @@ function Microphone(props) {
 function Synth(props) {
     let name = props.name;
     let synth;
+    const [showNotesPlayed, setShowNotesPlayed] = useState(false)
+    const [notesPlayed, setNotesPlayed] = useState([])
 
     switch (name) {
         case 'Synth':
@@ -189,8 +191,12 @@ function Synth(props) {
             synth = new Tone.Synth().toDestination();
     }
 
+    function playNote(note) {
+        synth.triggerAttackRelease(`${note}`, "6n")
+        setNotesPlayed([...notesPlayed, note])
+    }
 
-    const getTilesButtons = () => {
+    function getTilesButtons() {
         const notes = getNotesBetween('C2', 'B5')
         var tile_class = 'tile'
 
@@ -200,21 +206,32 @@ function Synth(props) {
             else
                 tile_class = 'tile'
 
-            return <button key={note} className={tile_class} onMouseDown={() => playNote(note)}></button>
+            return (
+                <button key={note} className={tile_class} onMouseDown={() => playNote(note)}></button>
+            )
         })
 
     }
 
-    function playNote(note) {
-        synth.triggerAttackRelease(`${note}`, "6n");
-    }
-
     return (
-        <div className="piano-container">
+        <div className='piano-container'>
             <h2>{name}</h2>
-            <div className="tiles-wrapper">
+            <div className='tiles-wrapper'>
                 {getTilesButtons()}
             </div>
+            {showNotesPlayed ?
+                (
+                    <div>
+                        <div className='notes-played-container'>
+                            <ul>
+                                {notesPlayed.map((note, index) => (<li key={index}>{note},</li>))}
+                            </ul>
+
+                        </div>
+                        <button className='button-primary margin-top' onClick={() => setShowNotesPlayed(false)}>Hide notes played</button>
+                    </div>
+                ) :
+                (<button className='button-primary margin-top' onClick={() =>  setShowNotesPlayed(true)}>Show notes played</button>)}
         </div>
     );
 }

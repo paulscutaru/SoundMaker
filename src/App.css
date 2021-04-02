@@ -22,3 +22,19 @@
   align-items: center;
   justify-content: center;
 }
+
+.App .button-primary{
+  border: 0;
+  padding: 10px 10px 10px 10px;
+  border-radius: 50px;
+  outline: none;
+}
+
+.App .button-primary:hover{
+  background-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.margin-top{
+  margin-top: 15px;
+}

@@ -45,6 +45,14 @@
   background-color: var(--primary-color);
 }
 
-.margin-top{
-  margin-top: 15px;
+.Instrument .notes-played-container{
+  overflow: auto;
 }
+
+.Instrument .notes-played-container ul{
+  display: flex;
+  list-style: none;
+  max-width: 500px;
+  font-size: 12px;
+}
+
