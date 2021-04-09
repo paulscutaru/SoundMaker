@@ -9,13 +9,12 @@
 }
 
 .tile {
-  
-  width: 50%;
+  width: 48%;
 }
 
 .tile_sharp {
   margin-right: -3%;
-  background: #444;
+  background: rgb(70, 70, 70);
   width: 30%;
   height: 120px;
   transform: translateX(-50%);
@@ -34,13 +33,12 @@
 .Instrument h2{
   padding: 5px;
   background-color: var(--tertiary-color);
-  border: 2px solid black;
   border-radius: 50px;
 }
 
 .Instrument .Options{
   margin-top: 15px;
-  padding: 10px 10px 10px 10px;
+  padding: 30px 30px 30px 30px;
   border-radius: 50px;
   background-color: var(--primary-color);
 }

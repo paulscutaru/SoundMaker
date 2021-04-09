@@ -7,11 +7,14 @@
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
     "classnames": "^2.2.6",
-    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "sequelize": "^6.6.2",
+    "sequelize-cli": "^6.2.0",
     "tone": "^14.7.77",
     "web-vitals": "^1.1.1"
   },
@@ -20,7 +23,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently \"node server/index.js\" \"npm start\""
+    "dev": "concurrently \"nodemon server/index.js\" \"npm start\""
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +45,8 @@
   },
   "proxy": "http://localhost:3001",
   "devDependencies": {
-    "concurrently": "^6.0.0"
+    "concurrently": "^6.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
   }
 }

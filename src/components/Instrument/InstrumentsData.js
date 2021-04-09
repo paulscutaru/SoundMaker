@@ -3,19 +3,29 @@ import React, { useState } from 'react';
 import getNotesBetween from "../utils/getNotesBetween";
 
 function Oscillator(props) {
-    const [frequency, setFrequency] = useState('440');
+    const [oscFrequency, setOscFrequency] = useState('440');
+    const [oscDetune, setOscDetune] = useState('0');
     const [oscType, setOscType] = useState('sine');
+    const [oscVolume, setOscVolume] = useState('-6');
 
-    const oscillator = new Tone.Oscillator(frequency, oscType).toDestination();
+    const oscillator = new Tone.Oscillator({
+        frequency: oscFrequency,
+        detune: oscDetune,
+        type: oscType,
+        volume: oscVolume
+    }).toDestination();
 
     const updateFrequency = (event) => {
-        if (event.target.value > 0)
-            setFrequency(Math.min(event.target.value, 4000));
-    };
+        if (event.target.value !== null && event.target.value !== '')
+            setOscFrequency(event.target.value);
+        else
+            setOscFrequency(0);
+    }
 
-    const updateOscType = (event) => {
-        setOscType(event.target.value);
-    };
+    const updateDetune = (event) => {
+        if (event.target.value !== '-')
+            setOscDetune(event.target.value);
+    }
 
     function trigger() {
         oscillator.start();
@@ -33,15 +43,23 @@ function Oscillator(props) {
             <div className='Options'>
                 <div className='margin-top'>
                     <label>Frequency:</label>
-                    <input name='frequency' value={frequency} onChange={updateFrequency} />
+                    <input name='frequency' type='number' min='20' max='4000' value={oscFrequency} onChange={updateFrequency} />
+                </div>
+                <div className='margin-top'>
+                    <label>Detune:</label>
+                    <input name='detune' type='number' min='-4000' max='4000' value={oscDetune} onChange={updateDetune} />
                 </div>
                 <div className='margin-top'>
                     <label>Type:</label>
-                    <select name="oscType" value={oscType} onChange={updateOscType}>
+                    <select name="oscType" value={oscType} onChange={e => setOscType(e.target.value)}>
                         <option value="sine">Sine</option>
                         <option value="square">Square</option>
                         <option value="triangle">Triangle</option>
                     </select>
+                </div>
+                <div className='margin-top'>
+                    <label>Volume:</label>
+                    <input name='volume' type='range' min='-12' max='12' value={oscVolume} onChange={e => setOscVolume(e.target.value)} />
                 </div>
             </div>
         </div>
@@ -50,13 +68,34 @@ function Oscillator(props) {
 
 function Noise(props) {
     const [noiseType, setNoiseType] = useState('white');
+    const [noiseFadeIn, setNoiseFadeIn] = useState('0');
+    const [noiseFadeOut, setNoiseFadeOut] = useState('0');
+    const [noiseRate, setNoiseRate] = useState('1');
+    const [noiseVolume, setNoiseVolume] = useState('-6');
 
-    const noise = new Tone.Noise(noiseType).toDestination();
-    noise.volume.value = -6;
 
-    const updateNoiseType = (event) => {
-        setNoiseType(event.target.value);
-    };
+    const noise = new Tone.Noise({
+        type: noiseType,
+        fadeIn: noiseFadeIn,
+        fadeOut: noiseFadeOut,
+        playbackRate: noiseRate,
+        volume: noiseVolume
+    }).toDestination();
+
+    const updateNoiseFadeIn = (event) => {
+        if (event.target.value !== null && event.target.value !== '')
+            setNoiseFadeIn(event.target.value);
+        else
+            setNoiseFadeIn(0);
+    }
+
+    const updateNoiseFadeOut = (event) => {
+        if (event.target.value !== null && event.target.value !== '')
+            setNoiseFadeOut(event.target.value);
+        else
+            setNoiseFadeOut(0);
+    }
+
 
     function trigger() {
         noise.start();
@@ -74,11 +113,27 @@ function Noise(props) {
             <div className='Options'>
                 <div className='margin-top'>
                     <label>Type:</label>
-                    <select name="noiseType" value={noiseType} onChange={updateNoiseType}>
+                    <select name="noiseType" value={noiseType} onChange={e => setNoiseType(e.target.value)}>
                         <option value="white">White</option>
                         <option value="brown">Brown</option>
                         <option value="pink">Pink</option>
                     </select>
+                    <div className='margin-top'>
+                        <label>Playback rate:</label>
+                        <input name='noiseRate' type='number' min='1' max='40' value={noiseRate} onChange={e => setNoiseRate(e.target.value)} />
+                    </div>
+                    <div className='margin-top'>
+                        <label>Fade In:</label>
+                        <input name='fadeIn' type='number' min='0' max='40' value={noiseFadeIn} onChange={updateNoiseFadeIn} />
+                    </div>
+                    <div className='margin-top'>
+                        <label>Fade Out:</label>
+                        <input name='fadeOut' type='number' min='0' max='40' value={noiseFadeOut} onChange={updateNoiseFadeOut} />
+                    </div>
+                    <div className='margin-top'>
+                        <label>Volume:</label>
+                        <input name='volume' type='range' min='-12' max='12' value={noiseVolume} onChange={e => setNoiseVolume(e.target.value)} />
+                    </div>
                 </div>
             </div>
         </div>
@@ -172,7 +227,7 @@ function Synth(props) {
     let name = props.name;
     let synth;
     const [showNotesPlayed, setShowNotesPlayed] = useState(false)
-    const [notesPlayed, setNotesPlayed] = useState([])
+    var [notesPlayed, setNotesPlayed] = useState([])
 
     switch (name) {
         case 'Synth':
@@ -229,9 +284,13 @@ function Synth(props) {
 
                         </div>
                         <button className='button-primary margin-top' onClick={() => setShowNotesPlayed(false)}>Hide notes played</button>
+                        <button className='button-primary margin-top' onClick={() => setNotesPlayed([])}>Clear</button>
                     </div>
                 ) :
-                (<button className='button-primary margin-top' onClick={() =>  setShowNotesPlayed(true)}>Show notes played</button>)}
+                (
+                    <button className='button-primary margin-top' onClick={() => setShowNotesPlayed(true)}>Show notes played</button>
+                )
+            }
         </div>
     );
 }

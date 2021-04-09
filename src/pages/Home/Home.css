@@ -1,40 +1,35 @@
-.App{
+.Home {
   width: 100vw;
   height: 100vh;
   display: flex;
 }
 
-.App .Content{
+.Home .Content {
   display: block;
   width: 100%;
   text-align: center;
 }
 
-.App .Header{
+.Home .Header {
   text-align: center;
   background-color: var(--tertiary-color);
-  border: 2px solid black;
   border-radius: 50px;
 }
 
-.App .Instrument{
+.Home .Instrument {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.App .button-primary{
+.Home .button-primary {
   border: 0;
   padding: 10px 10px 10px 10px;
   border-radius: 50px;
   outline: none;
 }
 
-.App .button-primary:hover{
+.Home .button-primary:hover {
   background-color: var(--primary-color);
   cursor: pointer;
-}
-
-.margin-top{
-  margin-top: 15px;
 }

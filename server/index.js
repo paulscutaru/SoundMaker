@@ -1,14 +1,18 @@
 const express = require("express");
-
+const cors = require('cors');
 const PORT = process.env.PORT || 3001;
-
 const app = express();
 
-app.get("/api", (req, res) => {
-    res.json({ message: "Hello from server!" });
-});
+const db = require('./models')
 
-app.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
-});
+app.use(cors());
 
+// Routers
+const loginRouter = require('./routes/LoginRoute')
+app.use('/login',loginRouter)
+
+db.sequelize.sync().then(() => {
+  app.listen(PORT, () => {
+    console.log("Server opened at port 3001");
+  });
+});
