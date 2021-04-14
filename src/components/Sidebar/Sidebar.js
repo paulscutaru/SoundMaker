@@ -4,12 +4,12 @@ import { SidebarData } from './SidebarData'
 
 export default function Sidebar(props) {
 
-    function handleInstrumentChange(newInstrument) {
+    function handleToolChange(newInstrument) {
         props.onClick(newInstrument);
     }
 
     return (
-        <div className='Sidebar' name={props.name} onChange={handleInstrumentChange}>
+        <div className='Sidebar' name={props.name} onChange={handleToolChange}>
             <h2>Instruments</h2>
             <ul className='SidebarList'>
                 {SidebarData.map((item, key) => {
@@ -18,7 +18,7 @@ export default function Sidebar(props) {
                             <h3 className='SidebarItemTitle'>{item.title}</h3>
                             <ul className='SidebarList'>
                                 {item.content.map((contentItem) =>
-                                    <li key={contentItem.name} className='SidebarDropdown' onClick={() => handleInstrumentChange(contentItem.name)}>{contentItem.name}</li>
+                                    <li key={contentItem.name} className='SidebarDropdown' onClick={() => handleToolChange(contentItem.name)}>{contentItem.name}</li>
                                 )}
                             </ul>
                         </li>

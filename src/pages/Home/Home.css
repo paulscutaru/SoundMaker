@@ -24,12 +24,14 @@
 
 .Home .button-primary {
   border: 0;
-  padding: 10px 10px 10px 10px;
+  box-shadow: 5px 5px 5px #aaaaaa;
+  margin: 5px 5px 5px 5px;
+  padding: 7px 7px 7px 7px;
   border-radius: 50px;
   outline: none;
 }
 
 .Home .button-primary:hover {
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   cursor: pointer;
 }

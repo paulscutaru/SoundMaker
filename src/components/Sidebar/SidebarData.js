@@ -1,40 +1,44 @@
 export const SidebarData = [
     {
-        title: 'Basic',
+        title: 'Create sounds',
         content: [
             {
                 name: 'Oscillator'
             },
             {
                 name: 'Noise'
-            }
-        ]
-    },
-    {
-        title: 'Synths',
-        content: [
+            },
             {
                 name: 'Synth'
             },
             {
-                name: 'MonoSynth'
-            },
-            {
-                name: 'FMSynth'
-            },
-            {
-                name: 'AMSynth'
+                name: 'Microphone'
             }
         ]
     },
     {
-        title: 'Misc',
+        title: 'Play sounds',
         content: [
+            
+            {
+                name: 'Sampler'
+            },
             {
                 name: 'Player'
             },
             {
-                name: 'Microphone'
+                name: 'Sequencer'
+            }
+        ]
+    },
+    {
+        title: 'Sounds library',
+        content: [
+            {
+                name: 'My sounds'
+            },
+            {
+                name: 'Shared sounds'
             }]
     }
 ]
