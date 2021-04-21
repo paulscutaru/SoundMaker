@@ -9,6 +9,9 @@ export const SidebarData = [
                 name: 'Noise'
             },
             {
+                name: 'Drums'
+            },
+            {
                 name: 'Synth'
             },
             {
@@ -17,14 +20,14 @@ export const SidebarData = [
         ]
     },
     {
-        title: 'Play sounds',
+        title: 'Play/Edit sounds',
         content: [
             
             {
-                name: 'Sampler'
+                name: 'Player'
             },
             {
-                name: 'Player'
+                name: 'Sampler'
             },
             {
                 name: 'Sequencer'

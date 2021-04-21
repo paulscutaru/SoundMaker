@@ -18,39 +18,58 @@
   width: 30%;
   height: 120px;
   transform: translateX(-50%);
-  box-shadow:-1px -1px 2px rgba(255,255,255,0.2) inset,0 -5px 2px 3px rgba(0,0,0,0.6) inset,0 2px 4px rgba(0,0,0,0.5);
+  box-shadow: -1px -1px 2px rgba(255, 255, 255, 0.2) inset,
+    0 -5px 2px 3px rgba(0, 0, 0, 0.6) inset, 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .tile:active,
-.tile_sharp:active{
+.tile_sharp:active {
   background-color: grey;
 }
 
-.play-button{
+.player-container {
+  background-color: var(--primary-color);
+  display: flex;
+}
+
+.play-button {
   width: 100%;
 }
 
-.Instrument h2{
+.Instrument h2 {
   padding: 5px;
   background-color: var(--tertiary-color);
   border-radius: 50px;
 }
 
-.Instrument .Options{
+.Instrument .Options {
+  margin: auto;
+  width: 250px;
+  clear: both;
   margin-top: 15px;
   padding: 30px 30px 30px 30px;
   border-radius: 50px;
   background-color: var(--primary-color);
 }
 
-.Instrument .notes-played-container{
+.Options input,
+select {
+  width: 100%;
+  clear: both;
+  padding: 3px 3px;
+  border: none;
+  border-radius: 50px;
+  box-sizing: border-box;
+  text-align-last: center;
+}
+
+.Instrument .notes-played-container {
   overflow: auto;
 }
 
-.Instrument .notes-played-container ul{
+.Instrument .notes-played-container ul {
   display: flex;
   list-style: none;
   max-width: 500px;
   font-size: 12px;
 }
-

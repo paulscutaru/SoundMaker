@@ -1,5 +1,12 @@
 import './Tool.css'
-import { Oscillator, Noise, Player, Microphone, Synth, Sampler, Sequencer } from "./ToolsData"
+import Oscillator from './Oscillator'
+import Noise from './Noise'
+import Drums from './Drums'
+import Microphone from './Microphone'
+import Sampler from './Sampler'
+import Player from './Player'
+import Sequencer from './Sequencer'
+import Synth from './Synth'
 
 export default function Tool(props) {
 
@@ -13,6 +20,10 @@ export default function Tool(props) {
     case 'Noise':
       return (
         <Noise name={name} />
+      );
+    case 'Drums':
+      return (
+        <Drums name={name} />
       );
     case 'Microphone':
       return (
