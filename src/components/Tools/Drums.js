@@ -6,7 +6,7 @@ export default function Drums(props) {
     const [drumType, setDrumType] = useState('sine');
     const [drumVolume, setDrumVolume] = useState('-6');
 
-    let drum
+    var drum;
 
     switch (drumType) {
         case 'Cymbal':
@@ -38,7 +38,23 @@ export default function Drums(props) {
             setDrumDetune(event.target.value);
     }
 
-    let name = props.name;
+    function download(){
+        const recorder = new Tone.Recorder()
+        drum.connect(recorder)
+        recorder.start()
+        drum.start()
+        drum.stop('+0.5')
+        setTimeout(async () => {
+            const recording = await recorder.stop();
+            const url = URL.createObjectURL(recording);
+            const anchor = document.createElement("a");
+            anchor.download = "recording.webm";
+            anchor.href = url;
+            anchor.click();
+        }, 1000);
+    }
+
+    var name = props.name;
     return (
         <div className='Drums margin-top'>
             <h2>{name}</h2>
@@ -62,7 +78,7 @@ export default function Drums(props) {
                 </div>
                 <div className='margin-top'>
                     <button className='button-primary'>Save sound</button>
-                    <button className='button-primary'>Download</button>
+                    <button className='button-primary' onClick={download}>Download</button>
                 </div>
             </div>
         </div>

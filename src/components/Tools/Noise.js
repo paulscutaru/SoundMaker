@@ -40,6 +40,22 @@ export default function Noise(props) {
         noise.stop();
     }
 
+    function download(){
+        const recorder = new Tone.Recorder()
+        noise.connect(recorder)
+        recorder.start()
+        noise.start()
+        noise.stop('+0.5')
+        setTimeout(async () => {
+            const recording = await recorder.stop();
+            const url = URL.createObjectURL(recording);
+            const anchor = document.createElement("a");
+            anchor.download = "recording.webm";
+            anchor.href = url;
+            anchor.click();
+        }, 1000);
+    }
+
     let name = props.name;
     return (
         <div className='margin-top'>
@@ -72,7 +88,7 @@ export default function Noise(props) {
                     </div>
                     <div className='margin-top'>
                         <button className='button-primary'>Save sound</button>
-                        <button className='button-primary'>Download</button>
+                        <button className='button-primary' onClick={download}>Download</button>                      
                     </div>
                 </div>
             </div>

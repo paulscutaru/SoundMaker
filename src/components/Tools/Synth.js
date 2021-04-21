@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import getNotesBetween from "../utils/getNotesBetween";
 
 export default function Synth(props) {
-    let synth;
+    var synth;
     const [synthType, setSynthType] = useState('Synth')
     const [synthDetune, setSynthDetune] = useState('0')
     const [synthVolume, setSynthVolume] = useState('-6')
@@ -77,6 +77,21 @@ export default function Synth(props) {
             setSynthDetune(event.target.value);
     }
 
+    function download(){
+        const recorder = new Tone.Recorder()
+        synth.connect(recorder)
+        recorder.start()
+        synth.triggerAttackRelease('C4','6n')
+        setTimeout(async () => {
+            const recording = await recorder.stop();
+            const url = URL.createObjectURL(recording);
+            const anchor = document.createElement("a");
+            anchor.download = "recording.webm";
+            anchor.href = url;
+            anchor.click();
+        }, 1000);
+    }
+
     return (
         <div className='piano-container'>
             <h2>{synthType}</h2>
@@ -122,7 +137,7 @@ export default function Synth(props) {
                 </div>
                 <div className='margin-top'>
                     <button className='button-primary'>Save sound</button>
-                    <button className='button-primary'>Download</button>
+                    <button className='button-primary' onClick={download}>Download</button>
                 </div>
             </div>
         </div>

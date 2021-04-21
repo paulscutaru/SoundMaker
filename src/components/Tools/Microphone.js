@@ -40,6 +40,12 @@ export default function Microphone(props) {
         if (recorder.state === 'stopped') {
             player = new Tone.Player(URL.createObjectURL(recording)).toDestination()
             player.autostart = true
+
+            const url = URL.createObjectURL(recording);
+            const anchor = document.createElement("a");
+            anchor.download = "recording.webm";
+            anchor.href = url;
+            anchor.click();
         }
     }
 

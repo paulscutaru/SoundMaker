@@ -19,5 +19,9 @@
 }
 
 .Linker a{
-  padding-right: 20px;
+  padding: 10px 15px 10px 15px;
+}
+
+.Linker a:hover{
+  background-color: var(--primary-color);
 }

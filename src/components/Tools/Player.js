@@ -57,7 +57,6 @@ export default function Player(props) {
                 <h3>Options</h3>
                 <div className='margin-top'>
                     <button className='button-primary'>Save sound</button>
-                    <button className='button-primary'>Download</button>
                 </div>
             </div>
         </div>

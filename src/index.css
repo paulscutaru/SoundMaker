@@ -1,6 +1,6 @@
 :root {
-  --primary-color: lightgrey;
-  --secondary-color: grey;
+  --primary-color: rgb(218, 218, 218);
+  --secondary-color: rgb(196, 196, 196);
   --tertiary-color:#ff8800;
 }
 
