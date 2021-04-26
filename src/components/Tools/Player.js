@@ -1,35 +1,15 @@
-import * as Tone from "tone";
 import React, { useState } from 'react';
 
 export default function Player(props) {
     const [selectedFile, setSelectedFile] = useState();
     const [isSelected, setIsSelected] = useState(false);
-    //const [playerTime, setPlayerTime] = useState('0');
-    //const [playerVolume, setPlayerVolume] = useState('-6');
-
-    var player = new Tone.Player().toDestination()
-    var buffer;
-
-    function trigger() {
-        if (isSelected) {
-            buffer = new Tone.Buffer(URL.createObjectURL(selectedFile), function () {
-                if (player.state === 'stopped') {
-                    player.buffer = buffer
-                    player.start()
-                }
-                else if (player.state === 'started') {
-                    player.stop()
-                }
-
-                console.log('Player state:', player.state)
-            });
-        }
-    }
 
     const changeHandler = (event) => {
-        setSelectedFile(event.target.files[0]);
-        setIsSelected(true);
-        console.log('Selected file in player: ', event.target.files[0].name)
+        var file = event.target.files[0]
+        setSelectedFile(file)
+        setIsSelected(true)
+        document.getElementById('audio').setAttribute('src', URL.createObjectURL(file));
+        console.log('Selected file in player: ', file.name)
     };
 
     let name = props.name;
@@ -38,7 +18,7 @@ export default function Player(props) {
             <h2>{name}</h2>
             <input type="file" name="file" accept='.mp3' onChange={changeHandler} />
             {isSelected ? (
-                <div>
+                <div className='file-info'>
                     <p>Filename: {selectedFile.name}</p>
                     <p>Filetype: {selectedFile.type}</p>
                     <p>Size: {selectedFile.size / 1000000} megabytes</p>
@@ -46,12 +26,13 @@ export default function Player(props) {
                         lastModifiedDate:{' '}
                         {selectedFile.lastModifiedDate.toLocaleDateString()}
                     </p>
+
                 </div>
             ) : (
                 <p>Select a file to show details</p>
             )}
-            <div className='player-container margin-top'>
-                <button className="play-button" onClick={trigger}>⚫</button>
+            <div>
+                <audio id="audio" controls />
             </div>
             <div className='Options'>
                 <h3>Options</h3>

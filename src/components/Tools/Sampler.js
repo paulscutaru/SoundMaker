@@ -1,16 +1,21 @@
+import * as Tone from "tone";
 import React, { useState } from 'react';
 
 import getNotesBetween from "../utils/getNotesBetween";
 
 export default function Sampler(props) {
     let name = props.name;
-    let synth;
+
     const [samplerSound, setSamplerSound] = useState('')
     const [showNotesPlayed, setShowNotesPlayed] = useState(false)
     var [notesPlayed, setNotesPlayed] = useState([])
+    const [selectedFile, setSelectedFile] = useState();
+    const [isSelected, setIsSelected] = useState(false);
+
+    const sampler = new Tone.Sampler().toDestination();
 
     function playNote(note) {
-        synth.triggerAttackRelease(`${note}`, "6n")
+        sampler.triggerAttackRelease(`${note}`, "6n")
         setNotesPlayed([...notesPlayed, note])
     }
 
@@ -30,6 +35,15 @@ export default function Sampler(props) {
         })
 
     }
+
+    const changeHandler = (event) => {
+        setSelectedFile(event.target.files[0]);
+        setIsSelected(true);
+        if (isSelected) {
+            sampler.add('C4',URL.createObjectURL(selectedFile))
+            console.log('Selected file in sampler: ', event.target.files[0].name)
+        }
+    };
 
     return (
         <div className='piano-container'>
@@ -57,6 +71,8 @@ export default function Sampler(props) {
             <div className='Options'>
                 <h3>Options</h3>
                 <div className='margin-top'>
+                    <label>Upload sound:</label>
+                    <input type="file" name="file" accept='.mp3' onChange={changeHandler} />
                     <label>Select sound:</label>
                     <select name="sound" value={samplerSound} onChange={e => setSamplerSound(e.target.value)}>
                     </select>

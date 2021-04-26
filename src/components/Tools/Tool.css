@@ -27,15 +27,6 @@
   background-color: grey;
 }
 
-.player-container {
-  background-color: var(--primary-color);
-  display: flex;
-}
-
-.play-button {
-  width: 100%;
-}
-
 .Instrument h2 {
   padding: 5px;
   background-color: var(--tertiary-color);
@@ -61,6 +52,16 @@ select {
   border-radius: 50px;
   box-sizing: border-box;
   text-align-last: center;
+}
+
+.play-button{
+  width: 100%;
+}
+
+.file-info{
+  margin: auto;
+  width: 80%;
+  font-size: 15px;
 }
 
 .Instrument .notes-played-container {
