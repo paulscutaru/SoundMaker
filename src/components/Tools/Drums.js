@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 export default function Drums(props) {
     const [drumDetune, setDrumDetune] = useState('0');
     const [drumType, setDrumType] = useState('sine');
-    const [drumVolume, setDrumVolume] = useState('-6');
+    const [drumVolume, setDrumVolume] = useState('-3');
 
     var drum;
 
@@ -33,22 +33,23 @@ export default function Drums(props) {
         drum.triggerAttackRelease('C1', '6n');
     }
 
-    const updateDetune = (event) => {
-        if (event.target.value !== '-')
-            setDrumDetune(event.target.value);
+    const updateDetune = (e) => {
+        if (e.currentTarget.value !== '-')
+            setDrumDetune(e.currentTarget.value);
     }
 
     function download(){
         const recorder = new Tone.Recorder()
         drum.connect(recorder)
         recorder.start()
-        drum.start()
-        drum.stop('+0.5')
+        drum.triggerAttackRelease('C1', '6n');
         setTimeout(async () => {
             const recording = await recorder.stop();
             const url = URL.createObjectURL(recording);
             const anchor = document.createElement("a");
-            anchor.download = "recording.webm";
+            let date = new Date()
+            let download_name = 'drum_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate();
+            anchor.download = `${download_name}.mp3`;
             anchor.href = url;
             anchor.click();
         }, 1000);
@@ -56,7 +57,7 @@ export default function Drums(props) {
 
     var name = props.name;
     return (
-        <div className='Drums margin-top'>
+        <div className='Drums'>
             <h2>{name}</h2>
             <button className="play-button" onClick={trigger}>⚫</button>
             <div className='Options'>
@@ -70,14 +71,13 @@ export default function Drums(props) {
                 </div>
                 <div className='margin-top'>
                     <label>Detune:</label>
-                    <input name='detune' type='number' min='-4000' max='4000' value={drumDetune} onChange={updateDetune} />
+                    <input name='detune' type='number' min='-4000' max='4000' defaultValue={drumDetune} onChange={updateDetune} />
                 </div>
                 <div className='margin-top'>
                     <label>Volume:</label>
-                    <input name='volume' type='range' min='-24' max='0' value={drumVolume} onChange={e => setDrumVolume(e.target.value)} />
+                    <input name='volume' type='range' min='-24' max='0' defaultValue={drumVolume} onChange={e => setDrumVolume(e.target.value)} />
                 </div>
                 <div className='margin-top'>
-                    <button className='button-primary'>Save sound</button>
                     <button className='button-primary' onClick={download}>Download</button>
                 </div>
             </div>

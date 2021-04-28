@@ -1,0 +1,19 @@
+.GlobalOptions{
+    background-color: var(--tertiary-color);
+    margin: auto;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    width: 25%;
+}
+
+.GlobalOptions .button-mute {
+    border: 0;
+    border-radius: 50px;
+    outline: none;
+    padding: 9px 12px 9px 12px;
+}
+
+.GlobalOptions .button-mute:hover {
+    background-color: var(--secondary-color);
+    cursor: pointer;
+  }

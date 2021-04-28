@@ -60,7 +60,8 @@ select {
 
 .file-info{
   margin: auto;
-  width: 80%;
+  text-align: left;
+  width: 30%;
   font-size: 15px;
 }
 

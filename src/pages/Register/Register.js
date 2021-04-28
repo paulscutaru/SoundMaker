@@ -6,7 +6,7 @@ export default function Register() {
     const [pass, setPass] = useState('');
     const [mail, setMail] = useState('');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (e) => {
     };
 
     return (

@@ -17,16 +17,16 @@ export default function Noise(props) {
         volume: noiseVolume
     }).toDestination();
 
-    const updateNoiseFadeIn = (event) => {
-        if (event.target.value !== null && event.target.value !== '')
-            setNoiseFadeIn(event.target.value);
+    const updateNoiseFadeIn = (e) => {
+        if (e.currentTarget.value !== null && e.currentTarget.value !== '')
+            setNoiseFadeIn(e.currentTarget.value);
         else
             setNoiseFadeIn(0);
     }
 
-    const updateNoiseFadeOut = (event) => {
-        if (event.target.value !== null && event.target.value !== '')
-            setNoiseFadeOut(event.target.value);
+    const updateNoiseFadeOut = (e) => {
+        if (e.currentTarget.value !== null && e.currentTarget.value !== '')
+            setNoiseFadeOut(e.currentTarget.value);
         else
             setNoiseFadeOut(0);
     }
@@ -40,7 +40,7 @@ export default function Noise(props) {
         noise.stop();
     }
 
-    function download(){
+    function download() {
         const recorder = new Tone.Recorder()
         noise.connect(recorder)
         recorder.start()
@@ -50,7 +50,9 @@ export default function Noise(props) {
             const recording = await recorder.stop();
             const url = URL.createObjectURL(recording);
             const anchor = document.createElement("a");
-            anchor.download = "recording.webm";
+            let date = new Date()
+            let download_name = 'noise_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate();
+            anchor.download = `${download_name}.mp3`;
             anchor.href = url;
             anchor.click();
         }, 1000);
@@ -58,37 +60,36 @@ export default function Noise(props) {
 
     let name = props.name;
     return (
-        <div className='margin-top'>
+        <div>
             <h2>{name}</h2>
             <button className="play-button" onMouseDown={trigger} onMouseUp={stop} onMouseLeave={stop}>⚫</button>
             <div className='Options'>
                 <h3>Options</h3>
                 <div className='margin-top'>
                     <label>Type:</label>
-                    <select name="noiseType" value={noiseType} onChange={e => setNoiseType(e.target.value)}>
+                    <select name="noiseType" defaultValue={noiseType} onChange={e => setNoiseType(e.target.value)}>
                         <option value="white">White</option>
                         <option value="brown">Brown</option>
                         <option value="pink">Pink</option>
                     </select>
                     <div className='margin-top'>
                         <label>Playback rate:</label>
-                        <input name='noiseRate' type='number' min='1' max='40' value={noiseRate} onChange={e => setNoiseRate(e.target.value)} />
+                        <input name='noiseRate' type='number' min='1' max='40' defaultValue={noiseRate} onChange={e => setNoiseRate(e.target.value)} />
                     </div>
                     <div className='margin-top'>
                         <label>Fade In:</label>
-                        <input name='fadeIn' type='number' min='0' max='40' value={noiseFadeIn} onChange={updateNoiseFadeIn} />
+                        <input name='fadeIn' type='number' min='0' max='40' defaultValue={noiseFadeIn} onChange={updateNoiseFadeIn} />
                     </div>
                     <div className='margin-top'>
                         <label>Fade Out:</label>
-                        <input name='fadeOut' type='number' min='0' max='40' value={noiseFadeOut} onChange={updateNoiseFadeOut} />
+                        <input name='fadeOut' type='number' min='0' max='40' defaultValue={noiseFadeOut} onChange={updateNoiseFadeOut} />
                     </div>
                     <div className='margin-top'>
                         <label>Volume:</label>
-                        <input name='volume' type='range' min='-24' max='0' value={noiseVolume} onChange={e => setNoiseVolume(e.target.value)} />
+                        <input name='volume' type='range' min='-24' max='0' defaultValue={noiseVolume} onChange={e => setNoiseVolume(e.target.value)} />
                     </div>
                     <div className='margin-top'>
-                        <button className='button-primary'>Save sound</button>
-                        <button className='button-primary' onClick={download}>Download</button>                      
+                        <button className='button-primary' onClick={download}>Download</button>
                     </div>
                 </div>
             </div>

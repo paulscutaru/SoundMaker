@@ -4,8 +4,8 @@ export default function Player(props) {
     const [selectedFile, setSelectedFile] = useState();
     const [isSelected, setIsSelected] = useState(false);
 
-    const changeHandler = (event) => {
-        var file = event.target.files[0]
+    const changeHandler = (e) => {
+        var file = e.currentTarget.files[0]
         setSelectedFile(file)
         setIsSelected(true)
         document.getElementById('audio').setAttribute('src', URL.createObjectURL(file));
@@ -14,14 +14,14 @@ export default function Player(props) {
 
     let name = props.name;
     return (
-        <div className='margin-top'>
+        <div>
             <h2>{name}</h2>
             <input type="file" name="file" accept='.mp3' onChange={changeHandler} />
             {isSelected ? (
                 <div className='file-info'>
                     <p>Filename: {selectedFile.name}</p>
                     <p>Filetype: {selectedFile.type}</p>
-                    <p>Size: {selectedFile.size / 1000000} megabytes</p>
+                    <p>Size: {(selectedFile.size / (1024 * 1024)).toFixed(2) } megabytes</p>
                     <p>
                         lastModifiedDate:{' '}
                         {selectedFile.lastModifiedDate.toLocaleDateString()}
@@ -36,9 +36,6 @@ export default function Player(props) {
             </div>
             <div className='Options'>
                 <h3>Options</h3>
-                <div className='margin-top'>
-                    <button className='button-primary'>Save sound</button>
-                </div>
             </div>
         </div>
     );

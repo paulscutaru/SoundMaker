@@ -38,9 +38,6 @@ export const SidebarData = [
         title: 'Sounds library',
         content: [
             {
-                name: 'My sounds'
-            },
-            {
                 name: 'Shared sounds'
             }]
     }

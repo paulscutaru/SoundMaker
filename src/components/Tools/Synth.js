@@ -72,9 +72,9 @@ export default function Synth(props) {
 
     }
 
-    const updateDetune = (event) => {
-        if (event.target.value !== '-')
-            setSynthDetune(event.target.value);
+    const updateDetune = (e) => {
+        if (e.currentTarget.value !== '-')
+            setSynthDetune(e.currentTarget.value);
     }
 
     function download(){
@@ -86,7 +86,9 @@ export default function Synth(props) {
             const recording = await recorder.stop();
             const url = URL.createObjectURL(recording);
             const anchor = document.createElement("a");
-            anchor.download = "recording.webm";
+            let date = new Date()
+            let download_name = 'synth_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate();
+            anchor.download = `${download_name}.mp3`;
             anchor.href = url;
             anchor.click();
         }, 1000);
@@ -119,7 +121,7 @@ export default function Synth(props) {
                 <h3>Options</h3>
                 <div className='margin-top'>
                     <label>Type:</label>
-                    <select name="synthType" value={synthType} onChange={e => setSynthType(e.target.value)}>
+                    <select name="synthType" defaultValue={synthType} onChange={e => setSynthType(e.target.value)}>
                         <option value="Synth">Synth</option>
                         <option value="MonoSynth">MonoSynth</option>
                         <option value="FMSynth">FMSynth</option>
@@ -129,14 +131,13 @@ export default function Synth(props) {
                 </div>
                 <div className='margin-top'>
                     <label>Detune:</label>
-                    <input name='detune' type='number' min='-4000' max='4000' value={synthDetune} onChange={updateDetune} />
+                    <input name='detune' type='number' min='-4000' max='4000' defaultValue={synthDetune} onChange={updateDetune} />
                 </div>
                 <div className='margin-top'>
                     <label>Volume:</label>
-                    <input name='volume' type='range' min='-24' max='0' value={synthVolume} onChange={e => setSynthVolume(e.target.value)} />
+                    <input name='volume' type='range' min='-24' max='0' defaultValue={synthVolume} onChange={e => setSynthVolume(e.target.value)} />
                 </div>
                 <div className='margin-top'>
-                    <button className='button-primary'>Save sound</button>
                     <button className='button-primary' onClick={download}>Download</button>
                 </div>
             </div>

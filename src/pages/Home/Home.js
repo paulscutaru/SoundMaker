@@ -1,9 +1,11 @@
 import React from "react";
+import * as Tone from "tone";
 import "./Home.css";
 
 import Tool from '../../components/Tools/Tool'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import Header from '../../components/Header/Header'
+import GlobalOptions from '../../components/GlobalOptions/GlobalOptions'
 
 export default function Home(props) {
     const [instrument, setInstrument] = React.useState('Synth');
@@ -18,6 +20,7 @@ export default function Home(props) {
             <Sidebar name={instrument} onClick={handleInstrumentChange} />
             <div className='Content'>
                 <Header />
+                <GlobalOptions />
                 <div className='Instrument'>
                     <Tool name={instrument} />
                 </div>

@@ -4,8 +4,8 @@ import { SidebarData } from './SidebarData'
 
 export default function Sidebar(props) {
 
-    function handleToolChange(newInstrument) {
-        props.onClick(newInstrument);
+    function handleToolChange(newTool) {
+        props.onClick(newTool);
     }
 
     return (
