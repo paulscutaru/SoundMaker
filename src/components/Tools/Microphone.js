@@ -99,6 +99,16 @@ export default function Microphone(props) {
             const url = URL.createObjectURL(recording);
             player = new Tone.Player(url).toDestination()
             applyEffects(player)
+            const toneMeter = new Tone.Meter();
+            player.connect(toneMeter);
+
+            const toneFFT = new Tone.FFT();
+            player.connect(toneFFT);
+
+            const toneWaveform = new Tone.Waveform();
+            player.connect(toneWaveform);
+
+            
             player.autostart = true
 
             if (listener === false) {
@@ -111,7 +121,7 @@ export default function Microphone(props) {
                     anchor.download = `${download_name}.mp3`;
                     anchor.href = url;
                     anchor.click();
-                    
+
                 });
                 URL.revokeObjectURL(url)
             }

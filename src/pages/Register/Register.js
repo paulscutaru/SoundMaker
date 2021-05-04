@@ -4,7 +4,6 @@ export default function Register() {
 
     const [user, setUser] = useState('');
     const [pass, setPass] = useState('');
-    const [mail, setMail] = useState('');
 
     const handleSubmit = (e) => {
     };
@@ -20,10 +19,6 @@ export default function Register() {
                 <label>
                     <p>Password</p>
                     <input type="password" onChange={e => setPass(e.target.value)} />
-                </label>
-                <label>
-                    <p>E-mail</p>
-                    <input type="email" onChange={e => setPass(e.target.value)} />
                 </label>
                 <div>
                     <button type="submit">Submit</button>

@@ -1,5 +1,5 @@
 import * as Tone from "tone";
-import React, { useState } from 'react';
+import React from 'react';
 
 import getNotesBetween from "../utils/getNotesBetween";
 

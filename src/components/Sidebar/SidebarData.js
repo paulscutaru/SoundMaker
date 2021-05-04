@@ -20,7 +20,7 @@ export const SidebarData = [
         ]
     },
     {
-        title: 'Play/Edit sounds',
+        title: 'Play sounds',
         content: [
             
             {

@@ -75,3 +75,39 @@ select {
   max-width: 500px;
   font-size: 12px;
 }
+
+/* ----------- Sequencer -----------*/
+
+.Sequencer .notes-wrapper {
+  display: flex;
+}
+
+.Sequencer .notes-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.Sequencer .notes-column-active {
+  background-color: var(--tertiary-color);
+}
+
+.Sequencer .note {
+  margin: 3px;
+  width: 40px;
+  height: 55px;
+  background-color: white;
+  border: 2px solid var(--primary-color);
+  cursor: pointer;
+}
+
+.Sequencer .note-active {
+  background-color: var(--secondary-color);
+}
+
+.Sequencer .button-primary {
+  margin-top: 15px;
+  text-transform: uppercase;
+  width: 25%;
+  cursor: pointer;
+}
+

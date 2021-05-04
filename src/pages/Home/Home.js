@@ -1,5 +1,4 @@
-import React from "react";
-import * as Tone from "tone";
+import React, {useState} from "react";
 import "./Home.css";
 
 import Tool from '../../components/Tools/Tool'
@@ -8,7 +7,7 @@ import Header from '../../components/Header/Header'
 import GlobalOptions from '../../components/GlobalOptions/GlobalOptions'
 
 export default function Home(props) {
-    const [instrument, setInstrument] = React.useState('Synth');
+    const [instrument, setInstrument] = useState('Synth');
 
     function handleInstrumentChange(newInstrument) {
         setInstrument(newInstrument);
