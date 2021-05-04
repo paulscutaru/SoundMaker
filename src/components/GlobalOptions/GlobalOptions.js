@@ -6,12 +6,12 @@ export default function GlobalOptions() {
     const [muteIcon, setMuteIcon] = useState('🔈')
 
     function muteSounds() {
-        if (Tone.Destination.mute) {
-            Tone.Destination.mute = false
+        if (Tone.getDestination().mute) {
+            Tone.getDestination().mute = false
             setMuteIcon('🔈')
         }
         else {
-            Tone.Destination.mute = true
+            Tone.getDestination().mute = true
             setMuteIcon('🔇')
         }
     }

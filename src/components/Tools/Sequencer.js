@@ -24,6 +24,8 @@ function GenerateGrid() {
 export default function Sequencer(props) {
     const [grid, setGrid] = useState(GenerateGrid());
 
+    const [bpm, setBpm] = useState('90')
+
     // Boolean to handle if music is played or not
     const [isPlaying, setIsPlaying] = useState(false);
 
@@ -32,6 +34,8 @@ export default function Sequencer(props) {
 
     //Notice the new PolySynth in use here, to support multiple notes at once
     const synth = new Tone.PolySynth().toDestination();
+
+    Tone.getTransport().bpm.value = bpm
 
     // Updates our Grid's state
     // Written to be intelligble, not performant
@@ -54,13 +58,7 @@ export default function Sequencer(props) {
         setGrid(updatedGrid);
     }
 
-    function Refresh(){
-    }
-
     function PlayMusic() {
-        Tone.context.dispose()
-        Tone.setContext(new AudioContext())
-
         let melody = []
 
         grid.map((column) => {
@@ -92,15 +90,17 @@ export default function Sequencer(props) {
             setIsPlaying(false);
             setCurrentColumn(null);
 
-            Tone.Transport.stop();
+            Tone.getTransport().stop();
             Sequencer.stop();
             Sequencer.clear();
             Sequencer.dispose();
+            Tone.context.dispose()
+            Tone.setContext(new AudioContext())
         }
         else {
             setIsPlaying(true);
             Sequencer.start();
-            Tone.Transport.start();
+            Tone.getTransport().start();
         }
     };
 
@@ -126,11 +126,12 @@ export default function Sequencer(props) {
                     </div>
                 ))}
             </div>
+            <div>
+                <label>BPM:{bpm}</label>
+                <input type='range' min='20' max='300' defaultValue={bpm} onChange={e => setBpm(e.target.value)}></input>
+            </div>
             <button className="button-primary" onClick={() => PlayMusic()}>
                 {isPlaying ? "Stop" : "Play"}
-            </button>
-            <button className="button-primary" onClick={() => Refresh()}>
-                Refresh
             </button>
         </div>
     );

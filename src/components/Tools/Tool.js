@@ -7,10 +7,18 @@ import Sampler from './Sampler'
 import Player from './Player'
 import Sequencer from './Sequencer'
 import Synth from './Synth'
+import * as Tone from "tone";
+
+function Init(){
+  Tone.context.dispose()
+  Tone.setContext(new AudioContext())
+}
 
 export default function Tool(props) {
 
   const name = props.name;
+
+  Init()
 
   switch (name) {
     case 'Oscillator':

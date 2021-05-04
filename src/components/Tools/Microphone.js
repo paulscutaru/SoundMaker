@@ -6,12 +6,11 @@ export default function Microphone(props) {
     const mic = new Tone.UserMedia();
     const recorder = new Tone.Recorder();
 
-    var reverbAmount, crusherAmount, chorusAmount, tremoloAmount, pitchAmount, pingPongAmount = 0
+    var reverbAmount, chorusAmount, tremoloAmount, pitchAmount, pingPongAmount = 0
 
     const [isFileReady, setIsFileReady] = useState(false)
 
     const reverb = new Tone.Reverb().toDestination()
-    const crusher = new Tone.BitCrusher().toDestination()
     const chorus = new Tone.Chorus().toDestination()
     const tremolo = new Tone.Tremolo().toDestination()
     const pitchShift = new Tone.PitchShift().toDestination()
@@ -21,9 +20,6 @@ export default function Microphone(props) {
     var recording;
     var listener = false;
 
-    mic.connect(recorder);
-
-
     if (mic.state === 'stopped') {
         mic.open().then(() => {
             console.log("Mic opened.");
@@ -32,6 +28,7 @@ export default function Microphone(props) {
         });
     }
 
+    mic.connect(recorder);
 
     async function record() {
         var data = null;
@@ -64,12 +61,7 @@ export default function Microphone(props) {
             })
             player.connect(chorus)
         }
-        if (crusherAmount > 0) {
-            crusher.set({
-                bits: crusherAmount
-            })
-            player.connect(crusher)
-        }
+        
         if (tremoloAmount > 0) {
             tremolo.start()
             tremolo.set({
@@ -99,15 +91,6 @@ export default function Microphone(props) {
             const url = URL.createObjectURL(recording);
             player = new Tone.Player(url).toDestination()
             applyEffects(player)
-            const toneMeter = new Tone.Meter();
-            player.connect(toneMeter);
-
-            const toneFFT = new Tone.FFT();
-            player.connect(toneFFT);
-
-            const toneWaveform = new Tone.Waveform();
-            player.connect(toneWaveform);
-
             
             player.autostart = true
 
@@ -121,9 +104,7 @@ export default function Microphone(props) {
                     anchor.download = `${download_name}.mp3`;
                     anchor.href = url;
                     anchor.click();
-
                 });
-                URL.revokeObjectURL(url)
             }
         }
     }
@@ -156,10 +137,6 @@ export default function Microphone(props) {
                 <div>
                     <label>Pitch shift:</label>
                     <input name='volume' type='range' min='0' max='10' step='1' defaultValue='0' onChange={(e) => { pitchAmount = e.target.value }} />
-                </div>
-                <div>
-                    <label>Crusher:</label>
-                    <input name='volume' type='range' min='0' max='5' step='1' defaultValue='0' onChange={(e) => { crusherAmount = e.target.value }} />
                 </div>
                 <div className='margin-top'>
                     {isFileReady ?
