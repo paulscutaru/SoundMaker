@@ -19,15 +19,13 @@
 
 .Linker{
   height: 40px;
-  width: 100%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 25px;
+  width: 10%;
+  padding-top: 50px;
+  text-align: center;
 }
 
 .Linker a{
+  display: block;
   padding: 10px 15px 10px 15px;
 }
 

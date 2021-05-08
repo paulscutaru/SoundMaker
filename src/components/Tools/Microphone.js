@@ -1,5 +1,5 @@
 import * as Tone from "tone";
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function Microphone(props) {
     let name = props.name;
@@ -7,8 +7,6 @@ export default function Microphone(props) {
     const recorder = new Tone.Recorder();
 
     var reverbAmount, chorusAmount, tremoloAmount, pitchAmount, pingPongAmount = 0
-
-    const [isFileReady, setIsFileReady] = useState(false)
 
     const reverb = new Tone.Reverb().toDestination()
     const chorus = new Tone.Chorus().toDestination()
@@ -18,7 +16,6 @@ export default function Microphone(props) {
 
     var player;
     var recording;
-    var listener = false;
 
     if (mic.state === 'stopped') {
         mic.open().then(() => {
@@ -39,7 +36,6 @@ export default function Microphone(props) {
         }
         else if (recorder.state === 'started') {
             data = await recorder.stop()
-            setIsFileReady(true)
             document.getElementById("record-button").innerText = '⚫'
             console.log("Recording stopped.");
         }
@@ -61,7 +57,7 @@ export default function Microphone(props) {
             })
             player.connect(chorus)
         }
-        
+
         if (tremoloAmount > 0) {
             tremolo.start()
             tremolo.set({
@@ -78,7 +74,7 @@ export default function Microphone(props) {
         }
         if (pingPongAmount > 0) {
             pingPong.set({
-                delayTime: pingPongAmount / 10
+                delayTime: pingPongAmount
             });
             player.connect(pingPong)
         }
@@ -88,24 +84,34 @@ export default function Microphone(props) {
         recording = await record()
 
         if (recorder.state === 'stopped' && recording != null) {
+
             const url = URL.createObjectURL(recording);
             player = new Tone.Player(url).toDestination()
             applyEffects(player)
-            
+
             player.autostart = true
 
-            if (listener === false) {
-                listener = true
-                var button = document.getElementById("download-button");
-                button.addEventListener("click", function () {
-                    const anchor = document.createElement("a");
-                    let date = new Date()
-                    let download_name = 'rec_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate();
-                    anchor.download = `${download_name}.mp3`;
-                    anchor.href = url;
-                    anchor.click();
-                });
-            }
+            // Download button
+            var oldButton = document.getElementById('download-button')
+            var download_div = document.getElementById("download-div")
+
+            // Remove old button if needed
+            if (oldButton)
+                download_div.removeChild(oldButton);
+
+            var newButton = document.createElement("button");
+            newButton.innerText = "Download";
+            newButton.className = 'button-primary'
+            newButton.id = 'download-button'
+            newButton.addEventListener("click", function () {
+                const anchor = document.createElement("a");
+                let date = new Date()
+                let download_name = 'rec_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate();
+                anchor.download = `${download_name}.mp3`;
+                anchor.href = url;
+                anchor.click();
+            }, { once: true })
+            download_div.appendChild(newButton);
         }
     }
 
@@ -120,33 +126,26 @@ export default function Microphone(props) {
                 <h3>Effects</h3>
                 <div>
                     <label>Reverb:</label>
-                    <input name='volume' type='range' min='0' max='10' step='1' defaultValue='0' onChange={(e) => { reverbAmount = e.target.value }} />
+                    <input name='volume' type='range' min='0' max='10' step='1' defaultValue='0' onChange={(e) => { reverbAmount = e.currentTarget.value }} />
                 </div>
                 <div>
                     <label>Ping pong:</label>
-                    <input name='volume' type='range' min='0' max='10' step='1' defaultValue='0' onChange={(e) => { pingPongAmount = e.target.value }} />
+                    <input name='volume' type='range' min='0' max='1' step='0.1' defaultValue='0' onChange={(e) => { pingPongAmount = e.currentTarget.value }} />
                 </div>
                 <div>
                     <label>Chorus:</label>
-                    <input name='volume' type='range' min='0' max='10' step='1' defaultValue='0' onChange={(e) => { chorusAmount = e.target.value }} />
+                    <input name='volume' type='range' min='0' max='10' step='1' defaultValue='0' onChange={(e) => { chorusAmount = e.currentTarget.value }} />
                 </div>
                 <div>
                     <label>Tremolo:</label>
-                    <input name='volume' type='range' min='0' max='10' step='1' defaultValue='0' onChange={(e) => { tremoloAmount = e.target.value }} />
+                    <input name='volume' type='range' min='0' max='10' step='1' defaultValue='0' onChange={(e) => { tremoloAmount = e.currentTarget.value }} />
                 </div>
                 <div>
                     <label>Pitch shift:</label>
-                    <input name='volume' type='range' min='0' max='10' step='1' defaultValue='0' onChange={(e) => { pitchAmount = e.target.value }} />
+                    <input name='volume' type='range' min='0' max='10' step='1' defaultValue='0' onChange={(e) => { pitchAmount = e.currentTarget.value }} />
                 </div>
-                <div className='margin-top'>
-                    {isFileReady ?
-                        (
-                            <button id="download-button" className="button-primary" >Download recordings</button>
-                        ) :
-                        (<p>Record a sound!</p>)
-                    }
+                <div id='download-div'>
                 </div>
-
             </div>
         </div>
     );

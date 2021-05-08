@@ -5,11 +5,12 @@ const app = express();
 
 const db = require('./models')
 
+app.use(express.json());
 app.use(cors());
 
 // Routers
-const loginRouter = require('./routes/LoginRoute')
-app.use('/login',loginRouter)
+const usersRouter = require('./routes/Users')
+app.use('/auth', usersRouter)
 
 db.sequelize.sync().then(() => {
   app.listen(PORT, () => {

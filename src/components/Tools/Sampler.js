@@ -10,6 +10,44 @@ export default function Sampler(props) {
     var loaded = false;
     var url;
 
+    var notesPlayed = []
+
+    function updateNotesPlayed(note) {
+        notesPlayed = notesPlayed + note + ',';
+        var list = document.getElementById('notes-played-list');
+
+        var newListItem = document.createElement('li');
+        newListItem.textContent = note + ',';
+
+        list.appendChild(newListItem);
+    }
+
+    function deleteNotesPlayed() {
+        notesPlayed = []
+        document.getElementById('notes-played-list').innerHTML = ''
+    }
+
+    function showNotesPlayed() {
+        var list = document.getElementById('notes-played-list');
+        var button_show = document.getElementById('show-notes-button')
+        if (list.style.display === 'none') {
+            list.style.display = 'flex'
+            button_show.innerText = 'Hide notes played'
+        } else {
+            list.style.display = 'none'
+            button_show.innerText = 'Show notes played'
+        }
+    }
+
+    function playNote(note) {
+        if (loaded) {
+            sampler.triggerAttackRelease(`${note}`, 1)
+            updateNotesPlayed(note)
+        }
+        else
+            alert('Upload a sample!')
+    }
+
     function getTilesButtons() {
         const notes = getNotesBetween('C2', 'B5')
         var tile_class = 'tile'
@@ -39,18 +77,19 @@ export default function Sampler(props) {
             alert('File must be under 4 MB!')
     };
 
-    function playNote(note) {
-        if (loaded)
-            sampler.triggerAttackRelease(`${note}`, 1)
-        else
-            alert('Upload a sample!')
-    }
-
     return (
         <div className='piano-container'>
             <h2>{name}</h2>
             <div className='tiles-wrapper'>
                 {getTilesButtons()}
+            </div>
+            <div>
+                <div className='notes-played-container'>
+                    <ul id='notes-played-list' >
+                    </ul>
+                </div>
+                <button id='show-notes-button' className='button-primary margin-top' onClick={showNotesPlayed}>Hide notes played</button>
+                <button id='clear-notes-button' className='button-primary margin-top' onClick={deleteNotesPlayed}>Clear</button>
             </div>
             <div className='Options'>
                 <h3>Options</h3>

@@ -61,9 +61,9 @@ export default function Sequencer(props) {
     function PlayMusic() {
         let melody = []
 
-        grid.map((column) => {
+        grid.forEach((column) => {
             let columnNotes = [];
-            column.map(
+            column.forEach(
                 (shouldPlay) =>
                     //If isActive, push the given note, with our chosen octave
                     shouldPlay.isActive &&
@@ -128,7 +128,7 @@ export default function Sequencer(props) {
             </div>
             <div>
                 <label>BPM:{bpm}</label>
-                <input type='range' min='20' max='300' defaultValue={bpm} onChange={e => setBpm(e.target.value)}></input>
+                <input type='range' min='20' max='300' defaultValue={bpm} onChange={e => setBpm(e.currentTarget.value)}></input>
             </div>
             <button className="button-primary" onClick={() => PlayMusic()}>
                 {isPlaying ? "Stop" : "Play"}

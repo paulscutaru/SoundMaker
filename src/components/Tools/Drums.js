@@ -29,7 +29,40 @@ export default function Drums(props) {
             break;
     }
 
+    var reverbAmount, pingPongAmount = 0
+    const reverb = new Tone.Reverb().toDestination()
+    const pingPong = new Tone.PingPongDelay().toDestination()
+
+    drum.connect(reverb)
+    drum.connect(pingPong)
+
+    function applyEffects() {
+        if (reverbAmount > 0) {
+            reverb.set({
+                decay: reverbAmount,
+                wet: 1
+            })
+        }
+        else {
+            reverb.set({
+                wet: 0
+            })
+        }
+        if (pingPongAmount > 0) {
+            pingPong.set({
+                delayTime: pingPongAmount,
+                wet: 1
+            })
+        }
+        else {
+            pingPong.set({
+                wet: 0
+            })
+        }
+    }
+
     function trigger() {
+        applyEffects()
         drum.triggerAttackRelease('C1', '6n');
     }
 
@@ -38,7 +71,7 @@ export default function Drums(props) {
             setDrumDetune(e.currentTarget.value);
     }
 
-    function download(){
+    function download() {
         const recorder = new Tone.Recorder()
         drum.connect(recorder)
         recorder.start()
@@ -59,12 +92,12 @@ export default function Drums(props) {
     return (
         <div className='Drums'>
             <h2>{name}</h2>
-            <button className="play-button" onClick={trigger}>⚫</button>
+            <button className="play-button" onMouseDown={trigger}>⚫</button>
             <div className='Options'>
                 <h3>Options</h3>
                 <div className='margin-top'>
                     <label>Type:</label>
-                    <select name="drumType" value={drumType} onChange={e => setDrumType(e.target.value)}>
+                    <select name="drumType" value={drumType} onChange={e => setDrumType(e.currentTarget.value)}>
                         <option value="Kick">Kick</option>
                         <option value="Cymbal">Cymbal</option>
                     </select>
@@ -73,11 +106,22 @@ export default function Drums(props) {
                     <label>Detune:</label>
                     <input name='detune' type='number' min='-4000' max='4000' defaultValue={drumDetune} onChange={updateDetune} />
                 </div>
-                <div className='margin-top'>
-                    <label>Volume:</label>
-                    <input name='volume' type='range' min='-24' max='0' defaultValue={drumVolume} onChange={e => setDrumVolume(e.target.value)} />
+                <div>
+                    <h3>Effects</h3>
+                    <div>
+                        <label>Reverb:</label>
+                        <input name='volume' type='range' min='0' max='10' step='1' defaultValue='0' onChange={(e) => { reverbAmount = e.currentTarget.value }} />
+                    </div>
+                    <div>
+                            <label>Ping pong:</label>
+                            <input name='volume' type='range' min='0' max='1' step='0.1' defaultValue='0' onChange={(e) => { pingPongAmount = e.currentTarget.value }} />
+                    </div>
                 </div>
-                <div className='margin-top'>
+                <div>
+                    <label>Volume:</label>
+                    <input name='volume' type='range' min='-24' max='0' defaultValue={drumVolume} onChange={e => setDrumVolume(e.currentTarget.value)} />
+                </div>
+                <div>
                     <button className='button-primary' onClick={download}>Download</button>
                 </div>
             </div>

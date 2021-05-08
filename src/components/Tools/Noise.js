@@ -6,9 +6,8 @@ export default function Noise(props) {
     const [noiseFadeIn, setNoiseFadeIn] = useState('0');
     const [noiseFadeOut, setNoiseFadeOut] = useState('0');
     const [noiseRate, setNoiseRate] = useState('1');
-    const [noiseVolume, setNoiseVolume] = useState('-6');
-
-
+    const [noiseVolume, setNoiseVolume] = useState('-10');
+    
     const noise = new Tone.Noise({
         type: noiseType,
         fadeIn: noiseFadeIn,
@@ -16,6 +15,38 @@ export default function Noise(props) {
         playbackRate: noiseRate,
         volume: noiseVolume
     }).toDestination();
+
+    var reverbAmount, pingPongAmount = 0
+    const reverb = new Tone.Reverb().toDestination()
+    const pingPong = new Tone.PingPongDelay().toDestination()
+
+    noise.connect(reverb)
+    noise.connect(pingPong)
+
+    function applyEffects() {
+        if (reverbAmount > 0) {
+            reverb.set({
+                decay: reverbAmount,
+                wet: 1
+            })
+        }
+        else {
+            reverb.set({
+                wet: 0
+            })
+        }
+        if (pingPongAmount > 0) {
+            pingPong.set({
+                delayTime: pingPongAmount,
+                wet: 1
+            })
+        }
+        else {
+            pingPong.set({
+                wet: 0
+            })
+        }
+    }
 
     const updateNoiseFadeIn = (e) => {
         if (e.currentTarget.value !== null && e.currentTarget.value !== '')
@@ -31,8 +62,8 @@ export default function Noise(props) {
             setNoiseFadeOut(0);
     }
 
-
     function trigger() {
+        applyEffects()
         noise.start();
     }
 
@@ -67,14 +98,14 @@ export default function Noise(props) {
                 <h3>Options</h3>
                 <div className='margin-top'>
                     <label>Type:</label>
-                    <select name="noiseType" defaultValue={noiseType} onChange={e => setNoiseType(e.target.value)}>
+                    <select name="noiseType" defaultValue={noiseType} onChange={e => setNoiseType(e.currentTarget.value)}>
                         <option value="white">White</option>
                         <option value="brown">Brown</option>
                         <option value="pink">Pink</option>
                     </select>
                     <div className='margin-top'>
                         <label>Playback rate:</label>
-                        <input name='noiseRate' type='number' min='1' max='40' defaultValue={noiseRate} onChange={e => setNoiseRate(e.target.value)} />
+                        <input name='noiseRate' type='number' min='1' max='40' defaultValue={noiseRate} onChange={e => setNoiseRate(e.currentTarget.value)} />
                     </div>
                     <div className='margin-top'>
                         <label>Fade In:</label>
@@ -84,11 +115,22 @@ export default function Noise(props) {
                         <label>Fade Out:</label>
                         <input name='fadeOut' type='number' min='0' max='40' defaultValue={noiseFadeOut} onChange={updateNoiseFadeOut} />
                     </div>
-                    <div className='margin-top'>
-                        <label>Volume:</label>
-                        <input name='volume' type='range' min='-24' max='0' defaultValue={noiseVolume} onChange={e => setNoiseVolume(e.target.value)} />
+                    <div>
+                        <h3>Effects</h3>
+                        <div>
+                            <label>Reverb:</label>
+                            <input name='volume' type='range' min='0' max='10' step='1' defaultValue='0' onChange={(e) => { reverbAmount = e.currentTarget.value }} />
+                        </div>
+                        <div>
+                            <label>Ping pong:</label>
+                            <input name='volume' type='range' min='0' max='1' step='0.1' defaultValue='0' onChange={(e) => { pingPongAmount = e.currentTarget.value }} />
+                        </div>
                     </div>
-                    <div className='margin-top'>
+                    <div>
+                        <label>Volume:</label>
+                        <input name='volume' type='range' min='-24' max='-6' defaultValue={noiseVolume} onChange={e => setNoiseVolume(e.currentTarget.value)} />
+                    </div>
+                    <div>
                         <button className='button-primary' onClick={download}>Download</button>
                     </div>
                 </div>

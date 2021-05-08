@@ -1,18 +1,19 @@
-module.exports= (sequelize,DataTypes) => {
-    const Users = sequelize.define('Users',{
-        id: {
-            type: DataTypes.INTEGER,
-            allowNull:false,
-            primaryKey: true,
-        },
-        username:{
+module.exports = (sequelize, DataTypes) => {
+    const Users = sequelize.define('Users', {
+        username: {
             type: DataTypes.STRING,
-            allowNull:false,
+            allowNull: false,
         },
-        password:{
+        password: {
             type: DataTypes.STRING,
-            allowNull:false,
+            allowNull: false,
         }
     });
+
+    Users.associate = (models) => {
+        Users.hasMany(models.Sounds, {
+            onDelete: "cascade",
+        });
+    };
     return Users;
 };

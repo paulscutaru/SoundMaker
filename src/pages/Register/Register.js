@@ -1,29 +1,57 @@
-import React,{useState} from 'react'
+import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import '../Login/Login.css'
 
-export default function Register() {
+export default function Registration() {
+    const initialValues = {
+        username: "",
+        password: "",
+    };
 
-    const [user, setUser] = useState('');
-    const [pass, setPass] = useState('');
+    const validationSchema = Yup.object().shape({
+        username: Yup.string().min(4).max(15).required(),
+        password: Yup.string().min(4).max(15).required(),
+    });
 
-    const handleSubmit = (e) => {
+    const onSubmit = (data) => {
+        axios.post("http://localhost:3001/auth/register", data).then(() => {
+            console.log(data);
+        });
     };
 
     return (
-        <div className='login-container'>
-            <h1>Register</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    <p>Username</p>
-                    <input type="text" onChange={e => setUser(e.target.value)} />
-                </label>
-                <label>
-                    <p>Password</p>
-                    <input type="password" onChange={e => setPass(e.target.value)} />
-                </label>
-                <div>
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
+        <div>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+                validationSchema={validationSchema}
+            >   
+                <Form className="login-container">
+                    <h2>Register</h2>
+                    <label>Username: </label>
+                    <ErrorMessage name="username" component="span" />
+                    <Field
+                        autoComplete="off"
+                        id="inputCreatePostUsername"
+                        name="username"
+                        placeholder="(Ex. John123...)"
+                    />
+
+                    <label>Password: </label>
+                    <ErrorMessage name="password" component="span" />
+                    <Field
+                        autoComplete="off"
+                        type="password"
+                        id="inputCreatePostPassword"
+                        name="password"
+                        placeholder="Your Password..."
+                    />
+
+                    <button type="submit"> Register</button>
+                </Form>
+            </Formik>
         </div>
-    )
-}
+    );
+};
