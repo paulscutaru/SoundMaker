@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 export default function Player(props) {
     const [selectedFile, setSelectedFile] = useState();
     const [init, setInit] = useState(false)
-    const WIDTH = 310, HEIGHT = 170;
+    const WIDTH = 350, HEIGHT = 170;
 
     var context = new (window.AudioContext || window.webkitAudioContext)();
     var audioElement, audioSrc, analyser, bufferLength, dataArray, canvas, canvasCtx;

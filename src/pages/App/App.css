@@ -16,19 +16,3 @@
 .margin-top{
   margin-top: 15px;
 }
-
-.Linker{
-  height: 40px;
-  width: 10%;
-  padding-top: 50px;
-  text-align: center;
-}
-
-.Linker a{
-  display: block;
-  padding: 10px 15px 10px 15px;
-}
-
-.Linker a:hover{
-  background-color: var(--primary-color);
-}

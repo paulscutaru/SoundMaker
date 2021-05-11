@@ -2,6 +2,7 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import Logo from '../../components/Logo/Logo'
 import '../Login/Login.css'
 
 export default function Registration() {
@@ -16,8 +17,13 @@ export default function Registration() {
     });
 
     const onSubmit = (data) => {
-        axios.post("http://localhost:3001/auth/register", data).then(() => {
-            console.log(data);
+        axios.post("http://localhost:3001/auth/register", data).then((response) => {
+            if (response.data.error) {
+                alert(response.data.error)
+            }
+            else {
+                alert('Register success! Go to login page.')
+            }
         });
     };
 
@@ -27,16 +33,17 @@ export default function Registration() {
                 initialValues={initialValues}
                 onSubmit={onSubmit}
                 validationSchema={validationSchema}
-            >   
+            >
                 <Form className="login-container">
+                    <Logo />
                     <h2>Register</h2>
+
                     <label>Username: </label>
                     <ErrorMessage name="username" component="span" />
                     <Field
                         autoComplete="off"
                         id="inputCreatePostUsername"
                         name="username"
-                        placeholder="(Ex. John123...)"
                     />
 
                     <label>Password: </label>
@@ -46,10 +53,9 @@ export default function Registration() {
                         type="password"
                         id="inputCreatePostPassword"
                         name="password"
-                        placeholder="Your Password..."
                     />
 
-                    <button type="submit"> Register</button>
+                    <button className='submit-button' type="submit"> Register</button>
                 </Form>
             </Formik>
         </div>

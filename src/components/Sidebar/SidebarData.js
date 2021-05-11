@@ -31,6 +31,8 @@ export const SidebarData = [
             },
             {
                 name: 'Sequencer'
+            },{
+                name: 'MIDI'
             }
         ]
     },

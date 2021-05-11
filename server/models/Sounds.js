@@ -3,6 +3,10 @@ module.exports= (sequelize,DataTypes) => {
         description:{
             type: DataTypes.STRING,
         },
+        username:{
+            type:DataTypes.STRING,
+            allowNull:false,
+        }
     });
 
     Users.associate = (models) =>{

@@ -4,8 +4,30 @@
   align-items: center;
   margin: auto;
   margin-top: 10%;
-  width: 35%;
+  width: 30%;
   text-align: center;
   border-radius: 50px;
   background-color: var(--primary-color);
+  height: 350px;
+}
+
+input,label{
+  font-size: medium;
+  margin-top: 6px;
+}
+
+
+.submit-button{
+  font-size: large;
+  border: 0;
+  box-shadow: 5px 5px 5px #aaaaaa;
+  padding: 16px 21px 16px 21px;
+  border-radius: 50px;
+  margin-top: 10px;
+  outline: none;
+}
+
+.submit-button:hover{
+  background-color: var(--secondary-color);
+  cursor: pointer;
 }

@@ -2,11 +2,11 @@ import * as Tone from "tone";
 import React, { useState } from 'react';
 
 export default function Noise(props) {
-    const [noiseType, setNoiseType] = useState('white');
+    const [noiseType, setNoiseType] = useState('brown');
     const [noiseFadeIn, setNoiseFadeIn] = useState('0');
     const [noiseFadeOut, setNoiseFadeOut] = useState('0');
     const [noiseRate, setNoiseRate] = useState('1');
-    const [noiseVolume, setNoiseVolume] = useState('-10');
+    const [noiseVolume, setNoiseVolume] = useState('-12');
     
     const noise = new Tone.Noise({
         type: noiseType,
@@ -99,9 +99,9 @@ export default function Noise(props) {
                 <div className='margin-top'>
                     <label>Type:</label>
                     <select name="noiseType" defaultValue={noiseType} onChange={e => setNoiseType(e.currentTarget.value)}>
-                        <option value="white">White</option>
                         <option value="brown">Brown</option>
                         <option value="pink">Pink</option>
+                        <option value="white">White</option>
                     </select>
                     <div className='margin-top'>
                         <label>Playback rate:</label>

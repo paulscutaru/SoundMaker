@@ -1,6 +1,5 @@
 .Home {
   width: 100vw;
-  height: 100vh;
   display: flex;
 }
 
@@ -10,14 +9,8 @@
   text-align: center;
 }
 
-.Home .Header {
-  text-align: center;
-  width: 100%;
-  background-color: var(--tertiary-color);
-  border-radius: 50px;
-}
-
 .Home .Instrument {
+  margin-top: 15px;
   display: flex;
   align-items: center;
   justify-content: center;

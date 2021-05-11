@@ -7,9 +7,10 @@ import Sampler from './Sampler'
 import Player from './Player'
 import Sequencer from './Sequencer'
 import Synth from './Synth'
+import MIDI from './MIDI'
 import * as Tone from "tone";
 
-function Init(){
+function Init() {
   Tone.context.dispose()
   Tone.setContext(new AudioContext())
 }
@@ -48,6 +49,10 @@ export default function Tool(props) {
     case 'Sequencer':
       return (
         <Sequencer name={name} />
+      );
+    case 'MIDI':
+      return (
+        <MIDI name={name} />
       );
     default:
       return (

@@ -18,6 +18,7 @@ export default function GlobalOptions() {
 
     return (
         <div className='GlobalOptions'>
+            <label>Mute all:</label>
             <button className='button-mute' onClick={muteSounds}>{muteIcon}</button>
         </div>
     )

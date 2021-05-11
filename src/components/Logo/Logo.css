@@ -1,0 +1,21 @@
+.Logo h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.Logo{
+  background-color: var(--tertiary-color);
+  border-radius: 50px;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.Home .Logo{
+  width: 30%;
+  border-radius: 0px 0px 50px 50px;
+  margin: auto;
+}
