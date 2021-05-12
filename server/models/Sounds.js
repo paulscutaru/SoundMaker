@@ -1,7 +1,8 @@
 module.exports= (sequelize,DataTypes) => {
-    const Users = sequelize.define('Sounds',{
+    const Sounds = sequelize.define('Sounds',{
         description:{
             type: DataTypes.STRING,
+            allowNull:true,
         },
         username:{
             type:DataTypes.STRING,
@@ -9,10 +10,5 @@ module.exports= (sequelize,DataTypes) => {
         }
     });
 
-    Users.associate = (models) =>{
-        Users.hasMany(models.Sounds,{
-            onDelete: "cascade",
-        });
-    };
-    return Users;
+    return Sounds;
 };

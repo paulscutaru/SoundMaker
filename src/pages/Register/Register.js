@@ -2,6 +2,7 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useHistory } from 'react-router-dom';
 import Logo from '../../components/Logo/Logo'
 import '../Login/Login.css'
 
@@ -16,13 +17,17 @@ export default function Registration() {
         password: Yup.string().min(4).max(15).required(),
     });
 
+
+    var history = useHistory()
+
     const onSubmit = (data) => {
         axios.post("http://localhost:3001/auth/register", data).then((response) => {
             if (response.data.error) {
                 alert(response.data.error)
             }
             else {
-                alert('Register success! Go to login page.')
+                alert('Register success! Redirect to login page...')
+                history.push('/')
             }
         });
     };

@@ -1,5 +1,6 @@
 import * as Tone from "tone";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
 
 export default function Oscillator(props) {
     const [oscFrequency, setOscFrequency] = useState('440');
@@ -11,11 +12,11 @@ export default function Oscillator(props) {
         type: oscType,
         volume: oscVolume
     }).toDestination();
-    
+
     var reverbAmount, pingPongAmount = 0
     const reverb = new Tone.Reverb().toDestination()
     const pingPong = new Tone.PingPongDelay().toDestination()
-    
+
     oscillator.connect(reverb)
     oscillator.connect(pingPong)
 
@@ -53,27 +54,55 @@ export default function Oscillator(props) {
 
     function trigger() {
         applyEffects()
-        oscillator.start();
+        oscillator.start()
         oscillator.stop('+0.25')
     }
 
-    function download() {
+    function saveSound(option) {
         const recorder = new Tone.Recorder()
+        applyEffects()
         oscillator.connect(recorder)
         recorder.start()
         oscillator.start()
-        oscillator.stop('+0.2')
+        oscillator.stop('+0.25')
         setTimeout(async () => {
             const recording = await recorder.stop();
             const url = URL.createObjectURL(recording);
-            const anchor = document.createElement("a");
-            let date = new Date()
-            let download_name = 'osc_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate();
-            anchor.download = `${download_name}.mp3`;
-            anchor.href = url;
-            anchor.click();
+            if (option === 'user') {
+                let date = new Date()
+                let download_name = 'osc_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate()
+                const anchor = document.createElement("a")
+                anchor.download = `${download_name}.mp3`
+                anchor.href = url
+                anchor.click()
+            }
+            else if (option === 'server') {
+                add()
+            }
         }, 1000);
     }
+
+    const add = () => {
+        axios.post(
+            "http://localhost:3001/sounds",
+            {
+                description: 'caca',
+                UserId: 1,
+            },
+            {
+                headers: {
+                    token: localStorage.getItem("token"),
+                },
+            }
+        )
+            .then((response) => {
+                if (response.data.error) {
+                    console.log(response.data.error);
+                } else {
+                    console.log(response.data);
+                }
+            });
+    };
 
     let name = props.name;
     return (
@@ -111,7 +140,8 @@ export default function Oscillator(props) {
                         <input name='volume' type='range' min='-24' max='-6' defaultValue={oscVolume} onChange={e => setOscVolume(e.currentTarget.value)} />
                     </div>
                     <div>
-                        <button className='button-primary' onClick={download}>Download</button>
+                        <button className='button-primary' onClick={() => saveSound('server')}>Save sound</button>
+                        <button className='button-primary' onClick={() => saveSound('user')}>Download</button>
                     </div>
                 </div>
             </div>

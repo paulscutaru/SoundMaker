@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import Logo from '../../components/Logo/Logo'
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import './Login.css'
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import Logo from '../../components/Logo/Logo'
+import {AuthContext} from '../utils/AuthContext'
 
 export default function Login() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const { setAuthState } = useContext(AuthContext)
 
     var history = useHistory()
 
@@ -17,7 +19,8 @@ export default function Login() {
                 alert(response.data.error)
             }
             else {
-                sessionStorage.setItem('token', response.data)
+                localStorage.setItem('token', response.data)
+                setAuthState(true)
                 console.log('token:', response.data)
                 history.push('/home')
             }
@@ -26,7 +29,7 @@ export default function Login() {
 
     return (
         <div className="login-container">
-            <Logo/>
+            <Logo />
             <h2>Login</h2>
             <label>Username:</label>
             <input

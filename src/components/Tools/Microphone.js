@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function Microphone(props) {
     let name = props.name;
-    const mic = new Tone.UserMedia();
+    var mic;
     const recorder = new Tone.Recorder();
 
     var reverbAmount, chorusAmount, tremoloAmount, pitchAmount, pingPongAmount = 0
@@ -17,15 +17,21 @@ export default function Microphone(props) {
     var player;
     var recording;
 
-    if (mic.state === 'stopped') {
-        mic.open().then(() => {
-            console.log("Mic opened.");
-        }).catch(e => {
-            console.log("Mic open rejected.");
-        });
+    function initMic() {
+        if (!mic) {
+            mic = new Tone.UserMedia()
+            mic.open();
+            mic.connect(recorder);
+        }
     }
 
-    mic.connect(recorder);
+    function disposeMic() {
+        if (mic) {
+            mic.dispose();
+            mic = null;
+        }
+    }
+
 
     async function record() {
         var data = null;
@@ -40,6 +46,47 @@ export default function Microphone(props) {
             console.log("Recording stopped.");
         }
         return data
+    }
+
+    async function trigger() {
+        if(!mic)
+            initMic();
+
+        recording = await record();
+
+        if (recorder.state === 'stopped' && recording != null) {
+
+            // Clear opened mic
+            disposeMic();
+
+            const url = URL.createObjectURL(recording);
+            player = new Tone.Player(url).toDestination()
+            applyEffects(player)
+
+            player.autostart = true
+
+            // Download button
+            var oldButton = document.getElementById('download-button')
+            var download_div = document.getElementById("download-div")
+
+            // Remove old button if needed
+            if (oldButton)
+                download_div.removeChild(oldButton);
+
+            var newButton = document.createElement("button");
+            newButton.innerText = "Download";
+            newButton.className = 'button-primary'
+            newButton.id = 'download-button'
+            newButton.addEventListener("click", function () {
+                const anchor = document.createElement("a");
+                let date = new Date()
+                let download_name = 'rec_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate();
+                anchor.download = `${download_name}.mp3`;
+                anchor.href = url;
+                anchor.click();
+            }, { once: true })
+            download_div.appendChild(newButton);
+        }
     }
 
     function applyEffects(player) {
@@ -79,42 +126,6 @@ export default function Microphone(props) {
             player.connect(pingPong)
         }
     }
-
-    async function trigger() {
-        recording = await record()
-
-        if (recorder.state === 'stopped' && recording != null) {
-
-            const url = URL.createObjectURL(recording);
-            player = new Tone.Player(url).toDestination()
-            applyEffects(player)
-
-            player.autostart = true
-
-            // Download button
-            var oldButton = document.getElementById('download-button')
-            var download_div = document.getElementById("download-div")
-
-            // Remove old button if needed
-            if (oldButton)
-                download_div.removeChild(oldButton);
-
-            var newButton = document.createElement("button");
-            newButton.innerText = "Download";
-            newButton.className = 'button-primary'
-            newButton.id = 'download-button'
-            newButton.addEventListener("click", function () {
-                const anchor = document.createElement("a");
-                let date = new Date()
-                let download_name = 'rec_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate();
-                anchor.download = `${download_name}.mp3`;
-                anchor.href = url;
-                anchor.click();
-            }, { once: true })
-            download_div.appendChild(newButton);
-        }
-    }
-
 
     return (
         <div>

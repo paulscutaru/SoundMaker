@@ -12,6 +12,10 @@ app.use(cors());
 const usersRouter = require('./routes/Users')
 app.use('/auth', usersRouter)
 
+
+const soundsRouter = require('./routes/Sounds')
+app.use('/sounds', soundsRouter)
+
 db.sequelize.sync().then(() => {
   app.listen(PORT, () => {
     console.log("Server opened at port 3001");
