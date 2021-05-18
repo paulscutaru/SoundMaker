@@ -11,7 +11,6 @@ export default function Home(props) {
 
     function handleInstrumentChange(newInstrument) {
         setInstrument(newInstrument);
-        console.log('Instrument set: ' + newInstrument)
     }
 
     return (

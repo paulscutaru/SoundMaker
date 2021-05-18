@@ -6,6 +6,7 @@ export default function Logo() {
         <div className='Logo'>
             <img src='/images/logo.png' alt="logo.png" />
             <h2>Sound Maker</h2>
+            <img src='/images/logo.png' alt="logo.png" />
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import * as Tone from "tone";
 import React, { useState } from 'react';
 import getNotesBetween from "../utils/getNotesBetween";
+import saveSound from '../utils/saveSound'
 
 export default function Synth(props) {
     var synth;
@@ -11,35 +12,28 @@ export default function Synth(props) {
     var notesPlayed = []
 
     switch (synthType) {
-        case 'Synth':
+        case 'synth':
             synth = new Tone.Synth({
                 detune: synthDetune,
                 volume: synthVolume
             }).toDestination();
             break;
-        case 'MonoSynth':
+        case 'monosynth':
             synth = new Tone.MonoSynth({
                 detune: synthDetune,
                 volume: synthVolume
             }).toDestination();
             break;
-        case 'FMSynth':
+        case 'fmsynth':
             synth = new Tone.FMSynth({
                 detune: synthDetune,
                 volume: synthVolume
             }).toDestination();
             break;
-        case 'AMSynth':
+        case 'amsynth':
             synth = new Tone.AMSynth({
                 detune: synthDetune,
                 volume: synthVolume
-            }).toDestination();
-            break;
-        case 'PluckSynth':
-            synth = new Tone.PluckSynth({
-                detune: synthDetune,
-                volume: synthVolume,
-                resonance: 0.95
             }).toDestination();
             break;
         default:
@@ -56,6 +50,8 @@ export default function Synth(props) {
     synth.connect(reverb)
     synth.connect(pingPong)
 
+    let date = new Date()
+    let file_name = 'synth_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate();
 
     function applyEffects() {
         if (reverbAmount > 0) {
@@ -80,6 +76,11 @@ export default function Synth(props) {
                 wet: 0
             })
         }
+        let effects = [
+            { reverb: reverb.get() },
+            { pingPong: pingPong.get() },
+        ]
+        return effects
     }
 
     function updateNotesPlayed(note) {
@@ -146,9 +147,7 @@ export default function Synth(props) {
             const recording = await recorder.stop();
             const url = URL.createObjectURL(recording);
             const anchor = document.createElement("a");
-            let date = new Date()
-            let download_name = 'synth_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate();
-            anchor.download = `${download_name}.mp3`;
+            anchor.download = `${file_name}.mp3`;
             anchor.href = url;
             anchor.click();
         }, 1000);
@@ -156,7 +155,7 @@ export default function Synth(props) {
 
     return (
         <div className='piano-container'>
-            <h2>{synthType}</h2>
+            <h2>{props.name}</h2>
             <div className='tiles-wrapper'>
                 {getTilesButtons()}
             </div>
@@ -174,11 +173,10 @@ export default function Synth(props) {
                 <div className='margin-top'>
                     <label>Type:</label>
                     <select name="synthType" defaultValue={synthType} onChange={e => setSynthType(e.currentTarget.value)}>
-                        <option value="Synth">Synth</option>
-                        <option value="MonoSynth">MonoSynth</option>
-                        <option value="FMSynth">FMSynth</option>
-                        <option value="AMSynth">AMSynth</option>
-                        <option value="PluckSynth">PluckSynth</option>
+                        <option value="synth">Synth</option>
+                        <option value="monosynth">MonoSynth</option>
+                        <option value="fmsynth">FMSynth</option>
+                        <option value="amsynth">AMSynth</option>
                     </select>
                 </div>
                 <div className='margin-top'>
@@ -201,6 +199,7 @@ export default function Synth(props) {
                     <input name='volume' type='range' min='-24' max='0' defaultValue={synthVolume} onChange={e => setSynthVolume(e.currentTarget.value)} />
                 </div>
                 <div>
+                    <button className='button-primary' onClick={() => saveSound(file_name, synthType, synth.get(), applyEffects())}>Save sound</button>
                     <button className='button-primary' onClick={download}>Download</button>
                 </div>
             </div>

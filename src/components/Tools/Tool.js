@@ -8,6 +8,7 @@ import Player from './Player'
 import Sequencer from './Sequencer'
 import Synth from './Synth'
 import MIDI from './MIDI'
+import MySounds from './MySounds'
 import * as Tone from "tone";
 
 function Init() {
@@ -20,6 +21,8 @@ export default function Tool(props) {
   const name = props.name;
 
   Init()
+
+  console.log('Instrument set: ' + name)
 
   switch (name) {
     case 'Oscillator':
@@ -53,6 +56,10 @@ export default function Tool(props) {
     case 'MIDI':
       return (
         <MIDI name={name} />
+      );
+    case 'My sounds':
+      return (
+        <MySounds name={name} />
       );
     default:
       return (

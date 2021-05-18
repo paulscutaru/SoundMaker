@@ -108,7 +108,7 @@ export default function Player(props) {
             </div>
             <div>
                 <canvas id='waveform-canvas' className='canvas' width={WIDTH} height={HEIGHT}>
-                    An alternative text describing what your canvas displays.
+                    
                 </canvas>
             </div>
         </div>

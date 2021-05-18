@@ -18,12 +18,13 @@ input,label{
 
 
 .submit-button{
+  width: 120px;
+  height: 50px;
   font-size: large;
   border: 0;
   box-shadow: 5px 5px 5px #aaaaaa;
-  padding: 16px 21px 16px 21px;
   border-radius: 50px;
-  margin-top: 10px;
+  margin-top: 20px;
   outline: none;
 }
 

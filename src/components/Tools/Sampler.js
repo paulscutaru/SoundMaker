@@ -41,7 +41,7 @@ export default function Sampler(props) {
 
     function playNote(note) {
         if (loaded) {
-            sampler.triggerAttackRelease(`${note}`, 1)
+            sampler.triggerAttackRelease(`${note}`, 3)
             updateNotesPlayed(note)
         }
         else

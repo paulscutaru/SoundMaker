@@ -1,5 +1,6 @@
 import * as Tone from "tone";
 import React, { useState } from 'react';
+import saveSound from '../utils/saveSound'
 
 export default function Noise(props) {
     const [noiseType, setNoiseType] = useState('brown');
@@ -7,7 +8,7 @@ export default function Noise(props) {
     const [noiseFadeOut, setNoiseFadeOut] = useState('0');
     const [noiseRate, setNoiseRate] = useState('1');
     const [noiseVolume, setNoiseVolume] = useState('-12');
-    
+
     const noise = new Tone.Noise({
         type: noiseType,
         fadeIn: noiseFadeIn,
@@ -22,6 +23,9 @@ export default function Noise(props) {
 
     noise.connect(reverb)
     noise.connect(pingPong)
+
+    let date = new Date()
+    let file_name = 'noise_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate()
 
     function applyEffects() {
         if (reverbAmount > 0) {
@@ -46,6 +50,11 @@ export default function Noise(props) {
                 wet: 0
             })
         }
+        let effects = [
+            { reverb: reverb.get() },
+            { pingPong: pingPong.get() },
+        ]
+        return effects
     }
 
     const updateNoiseFadeIn = (e) => {
@@ -81,9 +90,7 @@ export default function Noise(props) {
             const recording = await recorder.stop();
             const url = URL.createObjectURL(recording);
             const anchor = document.createElement("a");
-            let date = new Date()
-            let download_name = 'noise_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate();
-            anchor.download = `${download_name}.mp3`;
+            anchor.download = `${file_name}.mp3`;
             anchor.href = url;
             anchor.click();
         }, 1000);
@@ -131,6 +138,7 @@ export default function Noise(props) {
                         <input name='volume' type='range' min='-24' max='-6' defaultValue={noiseVolume} onChange={e => setNoiseVolume(e.currentTarget.value)} />
                     </div>
                     <div>
+                        <button className='button-primary' onClick={() => saveSound(file_name, 'noise', noise.get(), applyEffects())}>Save sound</button>
                         <button className='button-primary' onClick={download}>Download</button>
                     </div>
                 </div>

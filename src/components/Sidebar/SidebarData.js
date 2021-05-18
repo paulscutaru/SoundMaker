@@ -14,24 +14,24 @@ export const SidebarData = [
             {
                 name: 'Synth'
             },
-            {
-                name: 'Microphone'
-            }
         ]
     },
     {
         title: 'Play sounds',
         content: [
-            
             {
                 name: 'Player'
+            },
+            {
+                name: 'Microphone'
             },
             {
                 name: 'Sampler'
             },
             {
                 name: 'Sequencer'
-            },{
+            },
+            {
                 name: 'MIDI'
             }
         ]
@@ -40,8 +40,12 @@ export const SidebarData = [
         title: 'Sounds library',
         content: [
             {
-                name: 'Shared sounds'
-            }]
+                name: 'My sounds'
+            },
+            {
+                name:'Shared Sounds'
+            }
+        ]
     }
 ]
 

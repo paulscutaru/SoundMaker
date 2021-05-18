@@ -1,6 +1,8 @@
-.Logo h2 {
-  margin: 0;
-  padding: 0;
+.Home .Logo{
+  display: flex;
+  width: 29%;
+  border-radius: 0px 0px 100px 100px;
+  margin: auto;
 }
 
 .Logo{
@@ -13,10 +15,9 @@
   justify-content: center;
 }
 
-
-.Home .Logo{
-  display: flex;
-  width: 26%;
-  border-radius: 0px 0px 100px 100px;
-  margin: auto;
+.Logo h2 {
+  margin: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 0;
 }

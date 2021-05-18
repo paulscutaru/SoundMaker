@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react"
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import axios from "axios"
@@ -5,10 +6,17 @@ import "./App.css"
 import Home from '../Home/Home'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
+import PageNotFound from '../PageNotFound/PageNotFound'
 import { AuthContext } from '../utils/AuthContext'
 
 export default function App(props) {
-  const [authState, setAuthState] = useState(false)
+  const [authState, setAuthState] = useState(
+    {
+      username: "",
+      id: 0,
+      logged: false
+    }
+  )
 
   useEffect(() => {
     axios.get('http://localhost:3001/auth/logged', {
@@ -17,11 +25,26 @@ export default function App(props) {
       }
     }).then((response) => {
       if (response.data.error)
-        setAuthState(false)
-      else
-        setAuthState(true)
+        setAuthState({ ...authState, logged: false })
+      else {
+        setAuthState({
+          username: response.data.username,
+          id: response.data.id,
+          logged: true
+        })
+      }
     })
   }, [])
+
+  function logout() {
+    localStorage.removeItem('token')
+    setAuthState({
+      username: "",
+      id: 0,
+      logged: false
+    })
+  }
+
 
   return (
     <div className='App'>
@@ -30,19 +53,28 @@ export default function App(props) {
           <div className='Linker'>
             <img src='/images/logo-fii.png' alt="logo-fii.png" />
             <h3>FII UAIC 2021</h3>
-            <Link to='/'>Login</Link>
-            <Link to='/register'>Register</Link>
-            {authState && (
-              <Link to='/home'>Home</Link>
-            )}
+            {authState.logged ? (
+              <>
+                <h3 className='username'>@{authState.username}</h3>
+                <button className='button-logout' onClick={logout}>Logout</button>
+              </>
+            ) : (
+              <>
+                <Link to='/'>Login</Link>
+                <Link to='/register'>Register</Link>
+              </>)}
           </div>
-          {authState && (
-            <Route path="/home" exact component={Home} />
-          )}
-          <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/register" exact component={Register} />
-          </Switch>
+          {authState.logged ? (
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="*" exact component={PageNotFound} />
+            </Switch>
+          ) : (
+            <Switch>
+              <Route path="/" exact component={Login} />
+              <Route path="/register" exact component={Register} />
+              <Route path="*" exact component={PageNotFound} />
+            </Switch>)}
         </BrowserRouter>
       </AuthContext.Provider>
     </div>

@@ -16,16 +16,3 @@
   justify-content: center;
 }
 
-.Home .button-primary {
-  border: 0;
-  box-shadow: 5px 5px 5px #aaaaaa;
-  margin: 5px 5px 5px 5px;
-  padding: 7px 11px 7px 11px;
-  border-radius: 50px;
-  outline: none;
-}
-
-.Home .button-primary:hover {
-  background-color: var(--secondary-color);
-  cursor: pointer;
-}

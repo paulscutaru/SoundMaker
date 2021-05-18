@@ -20,7 +20,7 @@ export default function Registration() {
 
     var history = useHistory()
 
-    const onSubmit = (data) => {
+    const submit = (data) => {
         axios.post("http://localhost:3001/auth/register", data).then((response) => {
             if (response.data.error) {
                 alert(response.data.error)
@@ -36,7 +36,7 @@ export default function Registration() {
         <div>
             <Formik
                 initialValues={initialValues}
-                onSubmit={onSubmit}
+                onSubmit={submit}
                 validationSchema={validationSchema}
             >
                 <Form className="login-container">

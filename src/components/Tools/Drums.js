@@ -1,21 +1,22 @@
 import * as Tone from "tone";
 import React, { useState } from 'react';
+import saveSound from '../utils/saveSound';
 
 export default function Drums(props) {
     const [drumDetune, setDrumDetune] = useState('0');
-    const [drumType, setDrumType] = useState('sine');
+    const [drumType, setDrumType] = useState('kick');
     const [drumVolume, setDrumVolume] = useState('-3');
 
     var drum;
 
     switch (drumType) {
-        case 'Cymbal':
+        case 'cymbal':
             drum = new Tone.MetalSynth({
                 detune: drumDetune,
                 volume: drumVolume
             }).toDestination();
             break;
-        case 'Kick':
+        case 'kick':
             drum = new Tone.MembraneSynth({
                 detune: drumDetune,
                 volume: drumVolume
@@ -35,6 +36,9 @@ export default function Drums(props) {
 
     drum.connect(reverb)
     drum.connect(pingPong)
+
+    let date = new Date()
+    let file_name = 'drum_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate()
 
     function applyEffects() {
         if (reverbAmount > 0) {
@@ -59,6 +63,11 @@ export default function Drums(props) {
                 wet: 0
             })
         }
+        let effects = [
+            { reverb: reverb.get() },
+            { pingPong: pingPong.get() },
+        ]
+        return effects
     }
 
     function trigger() {
@@ -80,9 +89,7 @@ export default function Drums(props) {
             const recording = await recorder.stop();
             const url = URL.createObjectURL(recording);
             const anchor = document.createElement("a");
-            let date = new Date()
-            let download_name = 'drum_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate();
-            anchor.download = `${download_name}.mp3`;
+            anchor.download = `${file_name}.mp3`;
             anchor.href = url;
             anchor.click();
         }, 1000);
@@ -98,8 +105,8 @@ export default function Drums(props) {
                 <div className='margin-top'>
                     <label>Type:</label>
                     <select name="drumType" value={drumType} onChange={e => setDrumType(e.currentTarget.value)}>
-                        <option value="Kick">Kick</option>
-                        <option value="Cymbal">Cymbal</option>
+                        <option value="kick">Kick</option>
+                        <option value="cymbal">Cymbal</option>
                     </select>
                 </div>
                 <div className='margin-top'>
@@ -113,8 +120,8 @@ export default function Drums(props) {
                         <input name='volume' type='range' min='0' max='10' step='1' defaultValue='0' onChange={(e) => { reverbAmount = e.currentTarget.value }} />
                     </div>
                     <div>
-                            <label>Ping pong:</label>
-                            <input name='volume' type='range' min='0' max='1' step='0.1' defaultValue='0' onChange={(e) => { pingPongAmount = e.currentTarget.value }} />
+                        <label>Ping pong:</label>
+                        <input name='volume' type='range' min='0' max='1' step='0.1' defaultValue='0' onChange={(e) => { pingPongAmount = e.currentTarget.value }} />
                     </div>
                 </div>
                 <div>
@@ -122,6 +129,7 @@ export default function Drums(props) {
                     <input name='volume' type='range' min='-24' max='0' defaultValue={drumVolume} onChange={e => setDrumVolume(e.currentTarget.value)} />
                 </div>
                 <div>
+                    <button className='button-primary' onClick={() => saveSound(file_name, drumType, drum.get(), applyEffects())}>Save sound</button>
                     <button className='button-primary' onClick={download}>Download</button>
                 </div>
             </div>

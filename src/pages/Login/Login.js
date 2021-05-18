@@ -3,7 +3,7 @@ import axios from "axios";
 import './Login.css'
 import { useHistory } from 'react-router-dom';
 import Logo from '../../components/Logo/Logo'
-import {AuthContext} from '../utils/AuthContext'
+import { AuthContext } from '../utils/AuthContext'
 
 export default function Login() {
     const [username, setUsername] = useState("")
@@ -19,10 +19,10 @@ export default function Login() {
                 alert(response.data.error)
             }
             else {
-                localStorage.setItem('token', response.data)
-                setAuthState(true)
-                console.log('token:', response.data)
-                history.push('/home')
+                localStorage.setItem('token', response.data.token)
+                setAuthState({ username: response.data.username, id: response.data.id, logged: true })
+                console.log('Token:', response.data)
+                history.push('/')
             }
         });
     };

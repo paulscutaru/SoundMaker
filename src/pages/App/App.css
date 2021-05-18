@@ -1,4 +1,4 @@
-.App{
+.App {
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
@@ -9,15 +9,41 @@
   display: none;
 }
 .App {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
-.margin-top{
+.margin-top {
   margin-top: 15px;
 }
 
+input,
+textarea {
+  clear: both;
+  padding: 5px;
+  border: none;
+  border-radius: 50px;
+  text-align: center;
+  outline: none;
+}
+
+.button-primary {
+  border: 0;
+  margin: 5px;
+  padding: 8px 12px 8px 12px;
+  border-radius: 50px;
+  outline: none;
+}
+
+.button-primary:hover {
+  background-color: var(--secondary-color);
+  cursor: pointer;
+}
+
+/*----------Linker---------*/
+
 .Linker {
+  position: relative;
   width: 100%;
   display: flex;
   align-items: center;
@@ -25,27 +51,60 @@
 }
 
 .Linker a {
-  padding: 10px 10px 10px 10px;
-  color: black;
+  width: 110px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  text-align: center;
+  color: var(--tertiary-color);
+  background-color: black;
   border-radius: 50px;
   text-decoration: none;
-  font-size: 19.5px;
+  font-size: 18px;
 }
 
-.Linker a:hover {
+.Linker .username {
+  margin: 0;
+  margin-left: 10px;
+  padding: 13px;
+  color: var(--primary-color);
+  background-color: black;
+  border-radius: 50px;
+  font-size: 18px;
+}
+
+.Linker .button-logout {
+  color: var(--tertiary-color);
+  background-color: black;
+  position: absolute;
+  right: 10px;
+  font-size: 18px;
+  border: 2px solid black;
+  width: 110px;
+  height: 45px;
+  border-radius: 50px;
+  outline: none;
+  cursor: pointer;
+}
+
+.Linker a:hover,
+.button-logout:hover {
   color: var(--primary-color);
 }
 
-.Linker a:active {
+.Linker a:active,
+.button-logout:active {
   color: var(--secondary-color);
 }
 
 .Linker img {
-  margin-left: 15px;
-  margin-right: 10px;
+  margin-left: 10px;
+  margin-right: 5px;
 }
 
 .Linker a{
-  margin-left: 40px;
+  margin-left: 10px;
 }
 
+.Linker h3{
+  margin-right: 15px;
+}

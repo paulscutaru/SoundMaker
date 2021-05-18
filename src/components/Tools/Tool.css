@@ -64,6 +64,17 @@ select {
   width: 100%;
 }
 
+.midi{
+  width: 500px;
+}
+.midi-info{
+  border: 1px solid grey;
+  height: 300px;
+  width: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 .file-info{
   margin: auto;
   text-align: left;
@@ -123,3 +134,44 @@ select {
   cursor: pointer;
 }
 
+/* ----------- My Sounds -----------*/
+.MySounds{
+  width: 70%;
+}
+
+.MySounds table {
+  font-size: 13.5px;
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.MySounds thead th:nth-child(1) {
+  width: 20%;
+}
+
+.MySounds thead th:nth-child(2) {
+  width: 20%;
+}
+
+.MySounds thead th:nth-child(3) {
+  width: 15%;
+}
+
+.MySounds tbody td:nth-child(3){
+  
+  white-space: wrap;
+}
+
+.MySounds thead th:nth-child(4) {
+  width: 35%;
+}
+
+.MySounds thead th:nth-child(5) {
+  width: 20%;
+}
+
+.MySounds th, td {
+  word-wrap: break-word;
+  border: 1px solid lightgrey;
+}
