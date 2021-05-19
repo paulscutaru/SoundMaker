@@ -17,13 +17,17 @@
   margin-top: 15px;
 }
 
-input,
-textarea {
+input {
   clear: both;
   padding: 5px;
   border: none;
   border-radius: 50px;
   text-align: center;
+  outline: none;
+}
+
+select:focus{
+  
   outline: none;
 }
 
@@ -37,6 +41,11 @@ textarea {
 
 .button-primary:hover {
   background-color: var(--secondary-color);
+  cursor: pointer;
+}
+
+.button-delete:hover {
+  background-color: lightcoral;
   cursor: pointer;
 }
 

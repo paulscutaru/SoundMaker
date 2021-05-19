@@ -43,7 +43,7 @@ export const SidebarData = [
                 name: 'My sounds'
             },
             {
-                name:'Shared Sounds'
+                name:'Shared sounds'
             }
         ]
     }

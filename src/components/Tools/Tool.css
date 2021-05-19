@@ -44,13 +44,14 @@
   width: 250px;
   height: 100%;
   margin-top: 10px;
+  margin-bottom: 10px;
   padding: 25px 25px 25px 25px;
   border-radius: 50px;
   background-color: var(--primary-color);
 }
 
-.Options input,
-select {
+.Options input:not(input[type='checkbox']),
+select{
   width: 100%;
   clear: both;
   padding: 3px 3px;
@@ -60,14 +61,15 @@ select {
   text-align-last: center;
 }
 
-.play-button{
+
+.play-button {
   width: 100%;
 }
 
-.midi{
+.midi {
   width: 500px;
 }
-.midi-info{
+.midi-info {
   border: 1px solid grey;
   height: 300px;
   width: 500px;
@@ -75,16 +77,25 @@ select {
   overflow-x: hidden;
 }
 
-.file-info{
+.file-info {
   margin: auto;
   text-align: left;
   width: 40%;
   font-size: 15px;
 }
 
-.Instrument .canvas{
+.player-container {
+  background-color: var(--primary-color);
   border-radius: 50px;
 }
+
+.Instrument .canvas {
+  margin-top: 20px;
+  width: 100%;
+  border-radius: 50px;
+}
+
+
 
 /* ----------- Notes played -----------*/
 
@@ -135,43 +146,62 @@ select {
 }
 
 /* ----------- My Sounds -----------*/
-.MySounds{
-  width: 70%;
+.MySounds {
+  width: 90%;
+}
+
+.MySounds .Options{
+  font-size: 14px;
+  width: 350px;
+}
+
+.MySounds .filters-container{
+  display: flex;
+}
+
+.MySounds .filter{
+  padding: 5px;
+  display: block;
 }
 
 .MySounds table {
-  font-size: 13.5px;
+  margin-top: 20px;
+  font-size: 13px;
   table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
 }
 
 .MySounds thead th:nth-child(1) {
-  width: 20%;
+  width: 12%;
 }
 
 .MySounds thead th:nth-child(2) {
-  width: 20%;
+  width: 13%;
 }
 
 .MySounds thead th:nth-child(3) {
-  width: 15%;
-}
-
-.MySounds tbody td:nth-child(3){
-  
-  white-space: wrap;
+  width: 10%;
 }
 
 .MySounds thead th:nth-child(4) {
-  width: 35%;
-}
-
-.MySounds thead th:nth-child(5) {
   width: 20%;
 }
+.MySounds thead th:nth-child(5) {
+  width: 25%;
+}
+.MySounds thead th:nth-child(6) {
+  width: 15%;
+}
 
-.MySounds th, td {
+.MySounds tbody td:nth-child(5){
+  font-size: 12px;
+  height: 60px;
+}
+
+.MySounds th,
+td {
   word-wrap: break-word;
   border: 1px solid lightgrey;
+  
 }

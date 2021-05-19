@@ -11,7 +11,7 @@
   height: 350px;
 }
 
-input,label{
+.login-container input,.login-container label{
   font-size: medium;
   margin-top: 6px;
 }

@@ -88,28 +88,30 @@ export default function Player(props) {
     return (
         <div>
             <h2>{name}</h2>
-            <input type="file" name="file" accept='.mp3' onChange={changeHandler} />
-            {selectedFile ? (
-                <div className='file-info'>
-                    <p>Filename: {selectedFile.name}</p>
-                    <p>Filetype: {selectedFile.type}</p>
-                    <p>Size: {(selectedFile.size / (1024 * 1024)).toFixed(2)} megabytes</p>
-                    <p>
-                        lastModifiedDate:{' '}
-                        {selectedFile.lastModifiedDate.toLocaleDateString()}
-                    </p>
+            <div className='player-container'>
+                <input type="file" name="file" accept='.mp3' onChange={changeHandler} />
+                {selectedFile ? (
+                    <div className='file-info'>
+                        <p>Filename: {selectedFile.name}</p>
+                        <p>Filetype: {selectedFile.type}</p>
+                        <p>Size: {(selectedFile.size / (1024 * 1024)).toFixed(2)} megabytes</p>
+                        <p>
+                            lastModifiedDate:{' '}
+                            {selectedFile.lastModifiedDate.toLocaleDateString()}
+                        </p>
 
+                    </div>
+
+                ) : (
+                    <p>Select a file to show details</p>
+                )}
+                <div id='audio-div'>
                 </div>
+                <div>
+                    <canvas id='waveform-canvas' className='canvas' width={WIDTH} height={HEIGHT}>
 
-            ) : (
-                <p>Select a file to show details</p>
-            )}
-            <div id='audio-div'>
-            </div>
-            <div>
-                <canvas id='waveform-canvas' className='canvas' width={WIDTH} height={HEIGHT}>
-                    
-                </canvas>
+                    </canvas>
+                </div>
             </div>
         </div>
     );

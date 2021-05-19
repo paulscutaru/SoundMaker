@@ -9,6 +9,7 @@ import Sequencer from './Sequencer'
 import Synth from './Synth'
 import MIDI from './MIDI'
 import MySounds from './MySounds'
+import SharedSounds from './SharedSounds'
 import * as Tone from "tone";
 
 function Init() {
@@ -60,6 +61,10 @@ export default function Tool(props) {
     case 'My sounds':
       return (
         <MySounds name={name} />
+      );
+    case 'Shared sounds':
+      return (
+        <SharedSounds name={name} />
       );
     default:
       return (

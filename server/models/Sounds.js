@@ -16,13 +16,13 @@ module.exports= (sequelize,DataTypes) => {
             type:DataTypes.JSON,
             allowNull:false,
         },
-        description:{
-            type: DataTypes.STRING,
-            allowNull:true,
-        },
         username:{
             type:DataTypes.STRING,
             allowNull:false,
+        },
+        shared:{
+            type:DataTypes.BOOLEAN,
+            defaultValue: false,
         }
     });
 

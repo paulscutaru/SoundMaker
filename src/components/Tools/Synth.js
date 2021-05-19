@@ -5,7 +5,7 @@ import saveSound from '../utils/saveSound'
 
 export default function Synth(props) {
     var synth;
-    const [synthType, setSynthType] = useState('Synth')
+    const [synthType, setSynthType] = useState('synth')
     const [synthDetune, setSynthDetune] = useState('0')
     const [synthVolume, setSynthVolume] = useState('-6')
 
