@@ -21,7 +21,7 @@ export default function Oscillator(props) {
     oscillator.connect(pingPong)
 
     var date = new Date()
-    var file_name = 'osc_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate()
+    var file_name = 'osc_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate() + '_' + date.getSeconds()
 
     function applyEffects() {
         if (reverbAmount > 0) {

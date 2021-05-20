@@ -25,7 +25,7 @@ export default function Noise(props) {
     noise.connect(pingPong)
 
     let date = new Date()
-    let file_name = 'noise_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate()
+    let file_name = 'noise_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate() + '_' + date.getSeconds()
 
     function applyEffects() {
         if (reverbAmount > 0) {

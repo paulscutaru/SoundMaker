@@ -60,7 +60,7 @@ select:focus{
 }
 
 .Linker a {
-  width: 110px;
+  width: 120px;
   padding-top: 13px;
   padding-bottom: 13px;
   text-align: center;
@@ -73,7 +73,7 @@ select:focus{
 
 .Linker .username {
   margin: 0;
-  margin-left: 10px;
+  margin-left: 15px;
   padding: 13px;
   color: var(--primary-color);
   background-color: black;
@@ -88,11 +88,24 @@ select:focus{
   right: 10px;
   font-size: 18px;
   border: 2px solid black;
-  width: 110px;
-  height: 45px;
+  width: 120px;
+  height: 50px;
   border-radius: 50px;
   outline: none;
   cursor: pointer;
+}
+
+.Linker img {
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.Linker a{
+  margin-left: 15px;
+}
+
+.Linker h3{
+  margin-right: 15px;
 }
 
 .Linker a:hover,
@@ -105,15 +118,3 @@ select:focus{
   color: var(--secondary-color);
 }
 
-.Linker img {
-  margin-left: 10px;
-  margin-right: 5px;
-}
-
-.Linker a{
-  margin-left: 10px;
-}
-
-.Linker h3{
-  margin-right: 15px;
-}

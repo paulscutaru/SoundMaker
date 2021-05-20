@@ -17,7 +17,7 @@ export default function MySounds(props) {
             else {
                 setSounds(response.data)
                 setFiltered(response.data)
-                console.log(response.data)
+                console.log('Sounds received:', response.data)
             }
         })
     }, [])
@@ -36,7 +36,7 @@ export default function MySounds(props) {
                     setFiltered(filtered.filter((val) => {
                         return val.id !== sound_id
                     }))
-                    console.log(response.data)
+                    console.log('Delete sound:',response.data)
                 }
             })
     }

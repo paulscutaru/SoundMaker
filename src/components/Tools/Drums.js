@@ -38,7 +38,7 @@ export default function Drums(props) {
     drum.connect(pingPong)
 
     let date = new Date()
-    let file_name = 'drum_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate()
+    let file_name = 'drum_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate() + '_' + date.getSeconds()
 
     function applyEffects() {
         if (reverbAmount > 0) {

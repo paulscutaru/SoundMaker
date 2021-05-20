@@ -43,6 +43,7 @@ export default function App(props) {
       id: 0,
       logged: false
     })
+    console.log('User logged out.')
   }
 
 

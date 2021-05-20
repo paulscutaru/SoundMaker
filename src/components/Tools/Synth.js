@@ -51,7 +51,7 @@ export default function Synth(props) {
     synth.connect(pingPong)
 
     let date = new Date()
-    let file_name = 'synth_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate();
+    let file_name = 'synth_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate() + '_' + date.getSeconds()
 
     function applyEffects() {
         if (reverbAmount > 0) {

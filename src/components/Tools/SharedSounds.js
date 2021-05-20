@@ -17,7 +17,7 @@ export default function SharedSounds(props) {
             else {
                 setSounds(response.data)
                 setFiltered(response.data)
-                console.log(response.data)
+                console.log('Sounds received:', response.data)
             }
         })
     }, [])
@@ -79,7 +79,7 @@ export default function SharedSounds(props) {
                 if (response.data.error)
                     console.log(response.data.error)
                 else {
-                    console.log(response.data)
+                    console.log('Sound saved:',response.data)
                     let name = response.data.name
                     let instrument = response.data.instrument
                     let data = response.data.data

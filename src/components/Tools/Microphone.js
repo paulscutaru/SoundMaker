@@ -80,7 +80,7 @@ export default function Microphone(props) {
             newButton.addEventListener("click", function () {
                 const anchor = document.createElement("a");
                 let date = new Date()
-                let download_name = 'rec_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate();
+                let download_name = 'rec_' + date.getFullYear() + '_' + (date.getMonth() + 1) + '_' + date.getDate() + '_' + date.getSeconds()
                 anchor.download = `${download_name}.mp3`;
                 anchor.href = url;
                 anchor.click();
