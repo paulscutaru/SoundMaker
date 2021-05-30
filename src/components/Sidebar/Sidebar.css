@@ -1,5 +1,5 @@
 .Sidebar {
-  height: 800px;
+  height: 720px;
   width: 250px;
   background-color: var(--primary-color);
   text-align: center;
@@ -8,8 +8,8 @@
 
 .SidebarItemTitle{
   background-color: var(--tertiary-color);
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
   border-radius: 50px;
 }
 
@@ -21,7 +21,7 @@
 
 .SidebarDropdown {
   display: flex;
-  height: 45px;
+  height: 42px;
   justify-content: center;
   align-items: center;
 }

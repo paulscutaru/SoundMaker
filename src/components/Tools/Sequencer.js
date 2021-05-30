@@ -5,7 +5,7 @@ import classNames from "classnames";
 const CHOSEN_OCTAVE = "4";
 
 function GenerateGrid() {
-    const grid = [];
+    var grid = [];
     for (let i = 0; i < 16; i++) {
         let column = [
             { note: "C", isActive: false },
@@ -22,30 +22,27 @@ function GenerateGrid() {
 }
 
 export default function Sequencer(props) {
-    const [grid, setGrid] = useState(GenerateGrid());
+    var newGrid = GenerateGrid()
+    const [grid, setGrid] = useState(newGrid);
 
     const [bpm, setBpm] = useState('90')
 
-    // Boolean to handle if music is played or not
     const [isPlaying, setIsPlaying] = useState(false);
 
-    // Used to visualize which column is making sound
-    const [currentColumn, setCurrentColumn] = useState(null);
+    // Used to visualize which column is active
+    const [currentColumn, setCurrentColumn] = useState();
 
-    //Notice the new PolySynth in use here, to support multiple notes at once
     const synth = new Tone.PolySynth().toDestination();
 
     Tone.getTransport().bpm.value = bpm
 
-    // Updates our Grid's state
-    // Written to be intelligble, not performant
     function handleNoteClick(clickedColumn, clickedNote) {
-        // Shallow copy of our grid with updated isActive
+        // Copy of the grid with isActive updated
         let updatedGrid = grid.map((column, columnIndex) =>
             column.map((cell, cellIndex) => {
                 let cellCopy = cell;
 
-                // Flip isActive for the clicked note-cell in our grid
+                // Inverts isActive for the cell that was clicked
                 if (columnIndex === clickedColumn && cellIndex === clickedNote) {
                     cellCopy.isActive = !cell.isActive;
                 }
@@ -54,7 +51,7 @@ export default function Sequencer(props) {
             })
         );
 
-        //Updates the grid with the new note toggled
+        // Updates our grid
         setGrid(updatedGrid);
     }
 
@@ -65,7 +62,7 @@ export default function Sequencer(props) {
             let columnNotes = [];
             column.forEach(
                 (shouldPlay) =>
-                    //If isActive, push the given note, with our chosen octave
+                    // Push the given note if isActive is true
                     shouldPlay.isActive &&
                     columnNotes.push(shouldPlay.note + CHOSEN_OCTAVE)
             );
@@ -75,10 +72,10 @@ export default function Sequencer(props) {
 
         const Sequencer = new Tone.Sequence(
             (time, column) => {
-                // Highlight column with styling
+                // Column highlight
                 setCurrentColumn(column);
 
-                //Sends the active note to our PolySynth
+                // Adds the given note to synth
                 synth.triggerAttackRelease(melody[column], "8n", time);
             },
             [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
@@ -86,7 +83,7 @@ export default function Sequencer(props) {
         );
 
         if (isPlaying) {
-            // Turn of our player if music is currently playing
+            // Dispose and turn off if player is active
             setIsPlaying(false);
             setCurrentColumn(null);
 
@@ -98,6 +95,7 @@ export default function Sequencer(props) {
             Tone.setContext(new AudioContext())
         }
         else {
+            // Starts the sequencer
             setIsPlaying(true);
             Sequencer.start();
             Tone.getTransport().start();
@@ -113,7 +111,7 @@ export default function Sequencer(props) {
                         className={classNames("notes-column", {
                             "notes-column-active": currentColumn === columnIndex
                         })}
-                        key={columnIndex + "column"}
+                        key={'col' + columnIndex}
                     >
                         {column.map(({ note, isActive }, noteIndex) => (
                             <NoteButton
