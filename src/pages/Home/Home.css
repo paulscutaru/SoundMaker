@@ -15,4 +15,6 @@
   align-items: center;
   justify-content: center;
 }
-
+.Home p{
+  font-size: 13px;
+}

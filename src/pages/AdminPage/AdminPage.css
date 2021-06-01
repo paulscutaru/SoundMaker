@@ -1,0 +1,21 @@
+.admin-container{
+    font-size: 16px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.admin-options{
+    border-collapse: collapse;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.admin-options table{
+    width: 40%;
+}
+.admin-options table td,td{
+    width: 10%;
+    height: 25px;
+}

@@ -7,6 +7,7 @@ import Home from '../Home/Home'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import PageNotFound from '../PageNotFound/PageNotFound'
+import AdminPage from '../AdminPage/AdminPage'
 import { AuthContext } from '../utils/AuthContext'
 
 export default function App(props) {
@@ -68,12 +69,14 @@ export default function App(props) {
           {authState.logged ? (
             <Switch>
               <Route path="/" exact component={Home} />
+              <Route path="/admin" exact component={AdminPage} />
               <Route path="*" exact component={PageNotFound} />
             </Switch>
           ) : (
             <Switch>
               <Route path="/" exact component={Login} />
               <Route path="/register" exact component={Register} />
+              <Route path="/admin" exact component={AdminPage} />
               <Route path="*" exact component={PageNotFound} />
             </Switch>)}
         </BrowserRouter>

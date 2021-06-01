@@ -4,6 +4,7 @@ const { Users } = require('../models');
 const crypt = require('bcrypt');
 const { sign } = require('jsonwebtoken');
 const { validateToken } = require("../middlewares/AuthMiddleware");
+const { validateAdmin } = require("../middlewares/AdminMiddleware");
 
 router.post('/register', async (req, res) => {
     const { username, password } = req.body
@@ -45,5 +46,22 @@ router.post('/login', async (req, res) => {
 router.get('/logged', validateToken, (req, res) => {
     res.json(req.user)
 });
+
+router.get('/getUsers', validateAdmin, async (req, res) => {
+    const users = await Users.findAll()
+    res.json(users)
+});
+
+router.delete("/delete/:userId", validateAdmin, async (req, res) => {
+    const userId = req.params.userId;
+  
+    await Users.destroy({
+      where: {
+        id: userId,
+      },
+    });
+  
+    res.json("Deleted successfully");
+  });
 
 module.exports = router;
