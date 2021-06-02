@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./Home.css";
-
+import { Link } from 'react-router-dom'
 import Tool from '../../components/Tools/Tool'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import GlobalOptions from '../../components/GlobalOptions/GlobalOptions'
@@ -14,14 +14,21 @@ export default function Home(props) {
     }
 
     return (
-        <div className='Home'>
-            <Sidebar name={instrument} onClick={handleInstrumentChange} />
-            <div className='Content'>
-                <Logo/>
-                <div className='Instrument'>
-                    <Tool name={instrument} />
+        <div>
+            <div className='Home'>
+                <Sidebar name={instrument} onClick={handleInstrumentChange} />
+                <div className='Content'>
+                    <Logo />
+                    <div className='Instrument'>
+                        <Tool name={instrument} />
+                    </div>
+                    <GlobalOptions />
                 </div>
-                <GlobalOptions />
+
+            </div>
+            <div className='Footer'>
+                <Link to='/'>About</Link>
+                <a href='https://github.com/paulscutaru/Project' rel="noreferrer" target='_blank'>GitHub</a>
             </div>
         </div>
     );
