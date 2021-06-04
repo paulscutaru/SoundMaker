@@ -1,5 +1,7 @@
 .Sidebar {
-  height: 720px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 710px;
   width: 250px;
   background-color: var(--primary-color);
   text-align: center;
@@ -8,8 +10,8 @@
 
 .SidebarItemTitle{
   background-color: var(--tertiary-color);
-  padding-top: 2px;
-  padding-bottom: 2px;
+  padding-top: 3px;
+  padding-bottom: 3px;
   border-radius: 50px;
 }
 

@@ -54,7 +54,7 @@ h2{
 }
 
 h3{
-  font-size: 17px;
+  font-size: 16px;
 }
 
 /*----------Linker---------*/
@@ -129,7 +129,6 @@ h3{
 
 /*----------Footer---------*/
 .Footer {
-  margin-top: 15px;
   position: relative;
   height: 40px;
   width: 100%;
