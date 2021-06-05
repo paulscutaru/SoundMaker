@@ -127,31 +127,4 @@ h3{
   color: var(--secondary-color);
 }
 
-/*----------Footer---------*/
-.Footer {
-  position: relative;
-  height: 40px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--tertiary-color);
-}
-
-.Footer a {
-  font-weight: bold;
-  color: black;
-  text-decoration: none;
-  font-size: 17px;
-  margin: 25px;
-}
-
-.Footer a:hover{
-  color: white;
-}
-
-.Footer img {
-  margin-left: 10px;
-  margin-right: 5px;
-}
 

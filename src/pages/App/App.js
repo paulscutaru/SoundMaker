@@ -65,6 +65,8 @@ export default function App(props) {
                 <Link to='/'>Login</Link>
                 <Link to='/register'>Register</Link>
               </>)}
+            <Link to='/'>About</Link>
+            <a href='https://github.com/paulscutaru/Project' rel="noreferrer" target='_blank'>GitHub</a>
           </div>
           {authState.logged ? (
             <Switch>

@@ -26,10 +26,6 @@ export default function Home(props) {
                 </div>
 
             </div>
-            <div className='Footer'>
-                <Link to='/'>About</Link>
-                <a href='https://github.com/paulscutaru/Project' rel="noreferrer" target='_blank'>GitHub</a>
-            </div>
         </div>
     );
 
