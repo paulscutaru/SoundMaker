@@ -32,13 +32,21 @@ router.get('/getSharedSound/:soundId', validateToken, async (req, res) => {
 router.delete("/delete/:soundId", validateToken, async (req, res) => {
   const soundId = req.params.soundId;
 
-  await Sounds.destroy({
-    where: {
-      id: soundId,
-    },
-  });
+  var sound = await Sounds.findOne({ where: { id: soundId } })
+  
+  if (sound.UserId !== req.user.id) {
+    res.json({ error: 'Sound not owned by actual user!' })
+  }
+  else {
+    await Sounds.destroy({
+      where: {
+        id: soundId,
+      },
+    });
 
-  res.json("Deleted successfully");
+    res.json("Deleted successfully");
+  }
+
 });
 
 router.put("/share/:soundId", validateToken, async (req, res) => {
