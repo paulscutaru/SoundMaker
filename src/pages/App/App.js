@@ -65,7 +65,7 @@ export default function App(props) {
                 <Link to='/'>Login</Link>
                 <Link to='/register'>Register</Link>
               </>)}
-            <a href='https://github.com/paulscutaru/Project/public/documentation' rel="noreferrer" target='_blank'>About</a>
+            <a href='https://github.com/paulscutaru/Project/blob/main/public/documentation/teza_SabinCorneliuBuraga_ScutaruPaulAlexandru.pdf' rel="noreferrer" target='_blank'>About</a>
             <a href='https://github.com/paulscutaru/Project' rel="noreferrer" target='_blank'>GitHub</a>
           </div>
           {authState.logged ? (
