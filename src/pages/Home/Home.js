@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Home.css";
-import { Link } from 'react-router-dom'
 import Tool from '../../components/Tools/Tool'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import GlobalOptions from '../../components/GlobalOptions/GlobalOptions'

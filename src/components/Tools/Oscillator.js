@@ -54,7 +54,7 @@ export default function Oscillator(props) {
     }
 
     const updateFrequency = (e) => {
-        if (e.currentTarget.value !== null && e.currentTarget.value !== '')
+        if (e.currentTarget.value !== null && e.currentTarget.value !== '' && e.currentTarget.value[0] !== '-')
             setOscFrequency(e.currentTarget.value);
         else
             setOscFrequency(0);

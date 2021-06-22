@@ -56,16 +56,24 @@ export default function Noise(props) {
         ]
         return effects
     }
+    
+    const updateNoiseRate = (e) => {
+        if (e.currentTarget.value !== null && e.currentTarget.value !== '' && e.currentTarget.value[0] !== '-')
+            setNoiseRate(e.currentTarget.value);
+        else
+            setNoiseRate(1);
+    }
+
 
     const updateNoiseFadeIn = (e) => {
-        if (e.currentTarget.value !== null && e.currentTarget.value !== '')
+        if (e.currentTarget.value !== null && e.currentTarget.value !== '' && e.currentTarget.value[0] !== '-')
             setNoiseFadeIn(e.currentTarget.value);
         else
             setNoiseFadeIn(0);
     }
 
     const updateNoiseFadeOut = (e) => {
-        if (e.currentTarget.value !== null && e.currentTarget.value !== '')
+        if (e.currentTarget.value !== null && e.currentTarget.value !== '' && e.currentTarget.value[0] !== '-')
             setNoiseFadeOut(e.currentTarget.value);
         else
             setNoiseFadeOut(0);
@@ -112,7 +120,7 @@ export default function Noise(props) {
                     </select>
                     <div className='margin-top'>
                         <label>Playback rate:</label>
-                        <input name='noiseRate' type='number' min='1' max='40' defaultValue={noiseRate} onChange={e => setNoiseRate(e.currentTarget.value)} />
+                        <input name='noiseRate' type='number' min='1' max='40' defaultValue={noiseRate} onChange={updateNoiseRate} />
                     </div>
                     <div className='margin-top'>
                         <label>Fade In:</label>
